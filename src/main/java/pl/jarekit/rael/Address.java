@@ -3,9 +3,7 @@ package pl.jarekit.rael;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 @Setter @Getter
@@ -14,16 +12,32 @@ public class Address {
 
 
     @Id
-    @Column private int id;
+    @Column(name = "id", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.TABLE)
+    private Long id;
 
-    @Column private String street;
-    @Column(name="house_number") private String houseNumber;
-    @Column(name="apartment_number") private String apartmentNumber;
+    @Column private
+    String street;
+
+    @Column(name="house_number")
+    private String houseNumber;
+
+    @Column(name="apartment_number")
+    private String apartmentNumber;
 
     @Size(min = 5, max = 6, message = "postcode must be between 5-6 chars")
-    @Column private String postcode;
-    @Column private String city;
-    @Column private String status;
+    @Column
+    private String postcode;
+
+    @Column
+    private String city;
+
+    @Column
+    private String status;
+
+    @OneToOne( mappedBy="address", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    Client client;
+
 
     public Address() {
     }
@@ -50,5 +64,4 @@ public class Address {
                 '}' +
                 "\n" ;
     }
-
 }
