@@ -1,8 +1,8 @@
-package pl.jarekit.rael;
+package pl.jarekit.rael.repo;
 
 import org.springframework.data.repository.CrudRepository;
+import pl.jarekit.rael.model.Address;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface AddressRepo extends CrudRepository<Address, Long> {

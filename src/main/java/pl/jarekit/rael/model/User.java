@@ -1,4 +1,4 @@
-package pl.jarekit.rael;
+package pl.jarekit.rael.model;
 
 import lombok.Getter;
 import lombok.Setter;
