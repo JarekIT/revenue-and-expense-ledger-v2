@@ -1,13 +1,11 @@
-package pl.jarekit.rael;
+package pl.jarekit.rael.model;
 
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 @Setter @Getter
