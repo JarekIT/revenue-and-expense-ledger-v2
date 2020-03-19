@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Address</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--    <%&#45;&#45; <link rel="stylesheet" type="text/css" href="css/bootstrap.css">&#45;&#45;%>-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script>
+        $(function(){
+            $("#divMenuLeft").load("divMenuLeft.html");
+            $("#divUpperMenuLogged").load("divUpperMenuLogged.html");
+            $("#addButtons").load("addButtons.html");
+
+        });
+    </script>
+</head>
+<body>
+
+<!--    div upper menu-->
+<div id="divUpperMenuLogged"></div>
+
+<!--    div main-->
+<div id="main">
+
+    <!--    div menu (left side)-->
+    <div id="divMenuLeft"></div>
+
+    <!--        div content (central) inside main-->
+    <div id="content" class="col-sm-10">
+        <br><br><br><br>
+        <h3>Welcome in Address page</h3>
+        <br><br>
+
+        <!--    add buttons-->
+        <div id="addButtons"></div>
+
+        <br><br><br><br>
+
+        <!--    Address add/edit NEW form-->
+        <br> Add new Address: <br>
+            <table class="table table-bordered" align="center">
+            <form th:action="@{/addressAdd}" th:object="${address}" method="post">
+
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label for="id">ID</label>
+                        <input type="number" id="id" name="id" th:field="${address.id}" class="form-control" disabled >
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="street">Street name:</label>
+                        <input type="text" id="street" name="street" th:field="${address.street}" class="form-control" >
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="houseNumber">House number:</label>
+                        <input type="text" id="houseNumber" name="houseNumber" th:field="${address.houseNumber}" class="form-control" >
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="apartmentNumber">Apartment number:</label>
+                        <input type="text" id="apartmentNumber" name="apartmentNumber" th:field="${address.apartmentNumber}" class="form-control" >
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label for="postcode">Postcode:</label>
+                        <input type="text" id="postcode" name="postcode" th:field="${address.postcode}" class="form-control" >
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="city">City:</label>
+                        <input type="text" id="city" name="city" th:field="${address.city}" class="form-control" >
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="status">Status:</label>
+                        <input type="text" id="status" name="status" th:field="${address.status}" class="form-control" disabled>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="form-group col-md-4">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+
+            </form>
+            </table>
+
+            <!--    Address List-->
+
+    </div>
+</div>
+<!--    end div main-->
+
+
+</body>
+</html>
