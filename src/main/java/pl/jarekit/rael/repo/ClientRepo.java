@@ -1,6 +1,7 @@
-package pl.jarekit.rael;
+package pl.jarekit.rael.repo;
 
 import org.springframework.data.repository.CrudRepository;
+import pl.jarekit.rael.model.Client;
 
 import java.util.Optional;
 

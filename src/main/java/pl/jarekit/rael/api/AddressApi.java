@@ -41,6 +41,4 @@ public class AddressApi {
     public String removeAddress(@PathVariable long id) {
         return addressService.deleteAddress(id);
     }
-
-
 }
