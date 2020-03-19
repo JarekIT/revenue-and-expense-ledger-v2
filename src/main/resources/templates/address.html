@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Address</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--    <%&#45;&#45; <link rel="stylesheet" type="text/css" href="css/bootstrap.css">&#45;&#45;%>-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script>
+        $(function(){
+            $("#divMenuLeft").load("divMenuLeft.html");
+            $("#divUpperMenuLogged").load("divUpperMenuLogged.html");
+            $("#addButtons").load("addButtons.html");
+
+        });
+    </script>
+</head>
+<body>
+
+<!--    div upper menu-->
+<div id="divUpperMenuLogged"></div>
+
+<!--    div main-->
+<div id="main">
+
+    <!--    div menu (left side)-->
+    <div id="divMenuLeft"></div>
+
+    <!--        div content (central) inside main-->
+    <div id="content" class="col-sm-10">
+        <br><br><br><br>
+        <h3>Welcome in Address page</h3>
+        <br><br>
+
+        <!--    add buttons-->
+        <div id="addButtons"></div>
+
+        <!--    Address List-->
+        <hr>
+        <div class="container-smaller">
+            <h2>Address list</h2>
+            <input class="form-control" id="myInputAddress" type="text" placeholder="Search..">
+            <br>
+            <table class="table table-bordered table-striped table-sm small">
+                <thead>
+                <th style="text-align: center; ">No</th>
+                <th style="text-align: center; ">Street name</th>
+                <th style="text-align: center; ">House nr</th>
+                <th style="text-align: center; ">Apartment nr</th>
+                <th style="text-align: center; ">Postcode</th>
+                <th style="text-align: center; ">City</th>
+                <th style="text-align: center; ">Status</th>
+                <th style="text-align: center; ">Edit</th>
+                <th style="text-align: center; ">Delete</th>
+                </thead>
+
+                <tbody id="myTableAddress">
+                    <tr th:each="address: ${addresses}">
+                        <td style="text-align: center; " th:text="${address.id}"/>
+                        <td th:text="${address.street}"/>
+                        <td style="text-align: right; " th:text="${address.houseNumber}"/>
+                        <td style="text-align: right; " th:text="${address.apartmentNumber}"/>
+                        <td style="text-align: right; " th:text="${address.postcode}"/>
+                        <td th:text="${address.city}"/>
+                        <td th:text="${address.status}"/>
+                        <td> <a class="btn btn-warning btn-sm"
+                                href="/addressEdit?id=${address.id}">edit</a></td>
+                        <td>
+                            <a class="btn btn-danger btn-sm "
+                               href="/address?delete=${address.id}">delete</a>
+
+                            <div id="confirm" class="modal hide fade">
+                                <div class="modal-body">
+                                    Are you sure?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" data-dismiss="modal" class="btn btn-primary" id="delete">Delete</button>
+                                    <button type="button" data-dismiss="modal" class="btn">Cancel</button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <script>
+            $(document).ready(function(){
+                $("#myInputAddress").on("keyup", function() {
+                    var value = $(this).val().toLowerCase();
+                    $("#myTableAddress tr").filter(function() {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                    });
+                });
+            });
+        </script>
+    </div>
+</div>
+<!--    end div main-->
+
+
+
+</body>
+</html>
