@@ -78,4 +78,8 @@ public class AddressService {
             return "Failed Deleted address by id: " + id;
         }
     }
+
+    public boolean existById(long id){
+        return addressRepo.existsById(id);
+    }
 }
