@@ -4,97 +4,66 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import pl.jarekit.rael.model.Address;
-import pl.jarekit.rael.repo.AddressRepo;
 import pl.jarekit.rael.service.AddressService;
-
-import java.util.Optional;
 
 @Controller
 public class AddressController {
 
-    private AddressRepo addressRepo;
     private AddressService addressService;
 
-    private Iterable<Address> addresses;
-
     @Autowired
-    public AddressController(AddressService addressService, AddressRepo addressRepo) {
+    public AddressController(AddressService addressService) {
         this.addressService = addressService;
-        this.addressRepo = addressRepo;
     }
 
-    @PostMapping("/addressAdd")
-    public String addAddress(@ModelAttribute Address address){
+    @GetMapping("/address")
+    public String getAddresses(Model model){
+        Iterable<Address> addresses = addressService.getAddresses();
+        model.addAttribute("addresses",addresses);
+        return "address";
+    }
+
+    @RequestMapping("/addressAdd")
+    public String  showAddressAddPage(Model model){
+        model.addAttribute("address",new Address());
+        return "addressAdd";
+    }
+
+    @RequestMapping(value = "/addressAdd", method = RequestMethod.POST)
+    public String saveAddress(@ModelAttribute("address") Address address){
         addressService.saveAddress(address);
         return "redirect:/address";
 
     }
 
-    @GetMapping("/address")
-    public String getAddresses(Model model){
-        addresses = addressService.getAddresses();
-        model.addAttribute("addresses",addresses);
-        return "address";
-    }
+    @RequestMapping("/addressEdit/{id}")
+    public ModelAndView showAddressEditPage(@PathVariable long id){
+        ModelAndView mav = new ModelAndView("addressEdit");
 
-    @GetMapping("/address/{id}")
-    public String getAddressById(Model model){
-        addresses = addressService.getAddresses();
-        model.addAttribute("addresses",addresses);
-        return "address";
-    }
-
-
-
-
-
-
-    @RequestMapping(value = {"addressEdit/","addressEdit"})
-    public String  editEmptyAddress(Model model){
-        model.addAttribute("address",new Address());
-        return "addressEdit";
-    }
-
-    @RequestMapping(value = "addressEdit/{id}")
-    public String  editOneAddress(@PathVariable long id, @ModelAttribute Address address, Model model){
-        Optional<Address> loadedAddress = addressRepo.findById(id);
-        if (loadedAddress.isPresent()){
-            model.addAttribute("address",loadedAddress.get());
+        Address loadedAddress = addressService.getAddressById(id);
+        if (loadedAddress != null){
+            mav.addObject("address",loadedAddress);
         } else {
-            model.addAttribute("address",new Address());
+            mav.addObject("address", new Address());
         }
-        return "addressEdit";
+
+        return mav;
     }
 
+    @RequestMapping(value = "/addressEdit", method = RequestMethod.POST)
+    public String editAddress(@ModelAttribute("address") Address address){
+        addressService.saveAddress(address);
+        return "redirect:/address";
 
+    }
 
-
-//    @PutMapping
-//    public Address updateAddress(@RequestBody Address address){
-//        return addressRepo
-//    }
-
-//    private void setAddressToHistorical(long id){
-//        Optional<Address> address = addressRepo.findById(id);
-//
-//
-//    }
-
-//    @GetMapping("/addressEdit/")
-//    @ResponseBody
-//    public Address editAddress(@RequestParam long id, Model model){
-//        Optional<Address> loadedAddress = addressRepo.findById(id);
-//        if (loadedAddress.isPresent()){
-//            model.addAttribute("address",loadedAddress.get());
-//        } else {
-//            model.addAttribute("address",null);
-//        }
-//
-//        return "addressEdit";
-//    }
-//
-
-
-
+    @RequestMapping("/addressDelete/{id}")
+    public String deleteAddress(@PathVariable long id){
+        if (addressService.existById(id)){
+            addressService.deleteAddress(id);
+        }
+        return "redirect:/address";
+    }
 }
