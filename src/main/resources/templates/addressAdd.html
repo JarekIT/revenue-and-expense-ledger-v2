@@ -44,12 +44,12 @@
         <!--    Address add/edit NEW form-->
         <br> Add new Address: <br>
         <table class="table table-bordered" align="center">
-            <form th:action="@{/addressEdit}" th:object="${address}" method="post">
+            <form th:action="@{/addressAdd}" th:object="${address}" method="post">
 
                 <div class="form-row">
                     <div class="form-group col-md-2">
                         <label for="id">ID</label>
-                        <input type="number" id="id" name="id" th:field="*{id}" class="form-control" readonly="readonly" >
+                        <input type="number" id="id" name="id" th:field="*{id}" class="form-control" disabled >
                     </div>
                     <div class="form-group col-md-4">
                         <label for="street">Street name:</label>
@@ -83,8 +83,6 @@
                 <div>
                     <div class="form-group col-md-4">
                         <button type="submit" class="btn btn-primary">Save</button>
-                        <button type="button" class="btn btn-primary">Back</button>
-
                     </div>
                 </div>
 

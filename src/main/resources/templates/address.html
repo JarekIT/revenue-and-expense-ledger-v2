@@ -5,16 +5,16 @@
     <title>Address</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-<!--    <%&#45;&#45; <link rel="stylesheet" type="text/css" href="css/bootstrap.css">&#45;&#45;%>-->
+    <!--    <%&#45;&#45; <link rel="stylesheet" type="text/css" href="css/bootstrap.css">&#45;&#45;%>-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../static/css/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script>
         $(function(){
-            $("#divMenuLeft").load("divMenuLeft.html");
-            $("#divUpperMenuLogged").load("divUpperMenuLogged.html");
-            $("#addButtons").load("addButtons.html");
+            $("#divMenuLeft").load("/divMenuLeft.html");
+            $("#divUpperMenuLogged").load("/divUpperMenuLogged.html");
+            $("#addButtons").load("/addButtons.html");
 
         });
     </script>
@@ -67,21 +67,23 @@
                         <td style="text-align: right; " th:text="${address.postcode}"/>
                         <td th:text="${address.city}"/>
                         <td th:text="${address.status}"/>
-                        <td> <a class="btn btn-warning btn-sm"
-                                href="/addressEdit?id=${address.id}">edit</a></td>
+                        <td>
+                            <a class="btn btn-warning btn-sm"
+                               th:href="@{'/addressEdit/' + ${address.id}}">edit</a>
+                        </td>
                         <td>
                             <a class="btn btn-danger btn-sm "
-                               href="/address?delete=${address.id}">delete</a>
+                               th:href="@{'/addressDelete/' + ${address.id}}">delete</a>
 
-                            <div id="confirm" class="modal hide fade">
-                                <div class="modal-body">
-                                    Are you sure?
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" data-dismiss="modal" class="btn btn-primary" id="delete">Delete</button>
-                                    <button type="button" data-dismiss="modal" class="btn">Cancel</button>
-                                </div>
-                            </div>
+<!--                            <div id="confirm" class="modal hide fade">-->
+<!--                                <div class="modal-body">-->
+<!--                                    Are you sure?-->
+<!--                                </div>-->
+<!--                                <div class="modal-footer">-->
+<!--                                    <button type="button" data-dismiss="modal" class="btn btn-primary" id="delete">Delete</button>-->
+<!--                                    <button type="button" data-dismiss="modal" class="btn">Cancel</button>-->
+<!--                                </div>-->
+<!--                            </div>-->
                         </td>
                     </tr>
                 </tbody>
