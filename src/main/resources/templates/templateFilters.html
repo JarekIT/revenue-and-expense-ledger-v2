@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+        <script th:fragment="addresses">
+            $(document).ready(function(){
+                $("#myInputAddress").on("keyup", function() {
+                    var value = $(this).val().toLowerCase();
+                    $("#myTableAddress tr").filter(function() {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                    });
+                });
+            });
+        </script>
+
+        <script th:fragment="clients">
+            $(document).ready(function(){
+                $("#myInputClient").on("keyup", function() {
+                    var value = $(this).val().toLowerCase();
+                    $("#myTableClient tr").filter(function() {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                    });
+                });
+            });
+        </script>
+
+        <script th:fragment="invoices">
+            $(document).ready(function(){
+                $("#myInputInvoice").on("keyup", function() {
+                    var value = $(this).val().toLowerCase();
+                    $("#myTableInvoice tr").filter(function() {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                    });
+                });
+            });
+        </script>
+</html>

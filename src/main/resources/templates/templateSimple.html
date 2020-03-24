@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="header">
+    <meta charset="UTF-8">
+    <title th:text="${title}"></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--    <%&#45;&#45; <link rel="stylesheet" type="text/css" href="css/bootstrap.css">&#45;&#45;%>-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+
+<div th:fragment="addButtons" class="row">
+     <div class="col-xs-4"></div>
+    <div class="col-xs-4">
+            <button type="button" class="btn btn-primary" onclick="window.location.href = '/addressAdd';">add address</button>
+            <button type="button" class="btn btn-primary" onclick="window.location.href = '/clientAdd';">add client</button>
+            <button type="button" class="btn btn-primary" onclick="window.location.href = '/invoiceAdd';">add invoice</button>
+    </div>
+    <div class="col-xs-4"></div>
+</div>
+
+
+<div th:fragment="divMenuLeft" id="menu" class="col-md-2">
+
+    <br><br><br><br><br><br>
+
+    <ul>
+        <li><a href="/login.jsp" title="Login">Login</a> </li>
+        <li><a href="/loginChoseCompany.jsp" title="Config">Config</a> </li>
+        <br>
+        <li><a href="/welcome.jsp" title="Welcome">Welcome</a> </li>
+        <br>
+        <li><a href="/invoice" title="Invoice">Invoice List</a> </li>
+        <li><a href="/invoiceAdd" title="Invoice">Invoice add</a> </li>
+        <br>
+        <li><a href="/client" title="Client">Client List</a> </li>
+        <li><a href="/clientAdd" title="Client">Client add</a> </li>
+        <br>
+        <li><a href="/address" title="Address">Address List</a> </li>
+        <li><a href="/addressAdd" title="Address">Address add</a> </li>
+        <br>
+        <li><a href="/book" title=" Book">Book</a> </li>
+        <br>
+        <li><a href="/user" title="Admin">Admin</a> </li>
+        <br>
+        <li><a href="/logout" title="Logout">Logout</a> </li>
+    </ul>
+</div>
+
+
+<nav th:fragment="divUpperMenuAnonymous" class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Revenue&ExpenseLedger:</a>
+        </div>
+        <div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+
+                    <li><a href="/login.jsp" title="Login">Login</a> </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+<nav th:fragment="divUpperMenuLogged" class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">RaEL:</a>
+            <!--                <a class="navbar-brand" href="#">revenue and expense ledger</a>-->
+        </div>
+        <div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+
+                    <li><a href="/login.jsp" title="Login">Login</a> </li>
+                    <li><a href="/loginChoseCompany.jsp" title="Config">Config</a> </li>
+
+                    <li><a href="/welcome.jsp" title="Welcome">Welcome</a> </li>
+
+                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Invoice<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/invoice" title="Invoice">Invoice List</a> </li>
+                            <li><a href="/invoiceAdd" title="Invoice">Invoice add</a> </li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Client<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/client" title="Client">Client List</a> </li>
+                            <li><a href="/clientAdd" title="Client">Client add</a> </li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Address<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/address" title="Address">Address List</a> </li>
+                            <li><a href="/addressAdd" title="Address">Address add</a> </li>
+                        </ul>
+                    </li>
+
+                    <li><a href="/user" title="Admin">Admin</a> </li>
+
+                    <li><a href="/logout" title="Logout">Logout</a> </li>
+
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</nav>
+
+
+
+
+
+
+
+
+</html>

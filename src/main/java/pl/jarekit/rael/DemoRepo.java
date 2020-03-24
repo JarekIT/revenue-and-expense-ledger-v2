@@ -5,18 +5,23 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import pl.jarekit.rael.model.Address;
+import pl.jarekit.rael.model.Client;
 import pl.jarekit.rael.service.AddressService;
+import pl.jarekit.rael.service.ClientService;
 
+import java.math.BigInteger;
 import java.util.Arrays;
 
 @Component
 public class DemoRepo {
 
     private AddressService addressService;
+    private ClientService clientService;
 
     @Autowired
-    public DemoRepo(AddressService addressService) {
+    public DemoRepo(AddressService addressService, ClientService clientService) {
         this.addressService = addressService;
+        this.clientService = clientService;
     }
 
     @EventListener(ApplicationReadyEvent.class)
@@ -34,20 +39,24 @@ public class DemoRepo {
         addressService.saveAddresses(addresses123);
 
         // save Client and Address (separately)
-//        Address newAddress0 = new Address("GranicznaXYZ111", "1", "1", "81-626", "Gdynia");
-//        addressRepo.save(newAddress0);
-//        Client client = new Client("Jarek Jarek", BigInteger.valueOf(1234567890), "", "", BigInteger.TEN);
-//        client.setAddress(newAddress0);
-//        clientRepo.save(client);
+        Address newAddress0 = new Address("GranicznaXYZ111", "1", "1", "81-626", "Gdynia");
+        addressService.saveAddress(newAddress0);
+        Client client = new Client("Jarek1 Jarek1", BigInteger.valueOf(1234567890), "", "", BigInteger.TEN);
+        client.setAddress(newAddress0);
+        clientService.saveClient(client);
 
         // save Client and Address (one instance)
-//        Client client2 = new Client("Jarek2 Jarek2", BigInteger.valueOf(234567890), "", "", BigInteger.TEN);
-//        client2.setAddress(addressService.getAddressById(2L));
-//        clientRepo.save(client2);
+        Client client2 = new Client("Jarek2 Jarek2", BigInteger.valueOf(234567890), "", "", BigInteger.ZERO);
+        client2.setAddress(addressService.getAddressById(2L));
+        clientService.saveClient(client2);
 
         // write in console all addresses
         Iterable<Address> allAddresses = addressService.getAddresses();
         allAddresses.forEach(System.out::println);
+
+        // write in console all clients
+        Iterable<Client> allClients = clientService.getClients();
+        allClients.forEach(System.out::println);
 
     }
 
