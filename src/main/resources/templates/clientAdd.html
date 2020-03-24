@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="templateSimple :: header"></head>
+
+<body>
+
+<!--    div upper menu-->
+<div th:replace="templateSimple :: divUpperMenuLogged"></div>
+
+<!--    div main-->
+<div id="main">
+
+    <!--    div menu (left side)-->
+    <div th:replace="templateSimple :: divMenuLeft"></div>
+
+    <!--        div content (central) inside main-->
+    <div id="content" class="col-sm-10">
+        <br><br><br><br>
+        <h3>Welcome in Client add/edit page</h3>
+        <br><br>
+
+        <!--    add buttons-->
+        <div th:replace="templateSimple :: addButtons"></div>
+
+        <br><br><br><br>
+
+        <!--    Client add/edit NEW form-->
+        <br> Add new Client: <br>
+        <table class="table table-bordered" align="center">
+            <form th:action="@{/clientAdd}" th:object="${client}" method="post">
+
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label for="id">ID</label>
+                        <input type="number" name="id" th:field="*{id}" id="id" class="form-control" disabled >
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="idAddress">Address ID (list below)</label>
+                        <input type="number" name="idAddress" th:field="*{address.id}" id="idAddress" class="form-control" >
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="status">Status:</label>
+                        <input type="text" name="status" th:field="*{status}" id="status" class="form-control" disabled >
+                    </div>
+                    <div class="form-group col-md-3">
+<!--                        todo There will be user logged user id (first implement login system)-->
+                        <label>Added by: (There will be user logged user id)</label>
+<!--                        <input type="text" name="idUserCompany" th:field="*{loggeduser.client.id}" id="idUserCompany" class="form-control" disabled >-->
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="companyName">Company Name:</label>
+                        <input type="text" id="companyName" name="companyName" th:field="*{companyName}" class="form-control" >
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="companyNumber">Company Number:</label>
+                        <input type="number" id="companyNumber" name="companyNumber" th:field="*{companyNumber}" class="form-control" >
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="personalName">Personal name:</label>
+                        <input type="text" name="personalName" th:field="*{personalName}" id="personalName" class="form-control" >
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="companyNumber">Personal surname:</label>
+                        <input type="text" name="personalSurname" th:field="*{personalSurname}" id="personalSurname" class="form-control" >
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="personalNumber">Personal number:</label>
+                        <input type="number" name="personalNumber" th:field="*{personalNumber}" id="personalNumber" class="form-control" >
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn btn-primary" onclick="window.history.go(-1); return false;">Back</button>
+                    </div>
+                </div>
+
+            </form>
+        </table>
+
+        <!--    Address List-->
+        <div th:replace="templateTables :: addresses" ></div>
+    </div>
+</div>
+<!--    end div main-->
+
+
+</body>
+</html>
