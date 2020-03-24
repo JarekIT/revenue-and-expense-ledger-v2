@@ -3,11 +3,14 @@ package pl.jarekit.rael;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import pl.jarekit.rael.model.Address;
 import pl.jarekit.rael.model.Client;
+import pl.jarekit.rael.model.User;
 import pl.jarekit.rael.service.AddressService;
 import pl.jarekit.rael.service.ClientService;
+import pl.jarekit.rael.service.UserService;
 
 import java.math.BigInteger;
 import java.util.Arrays;
@@ -17,11 +20,15 @@ public class DemoRepo {
 
     private AddressService addressService;
     private ClientService clientService;
+    private UserService userService;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public DemoRepo(AddressService addressService, ClientService clientService) {
+    public DemoRepo(AddressService addressService, ClientService clientService, UserService userService, PasswordEncoder passwordEncoder) {
         this.addressService = addressService;
         this.clientService = clientService;
+        this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @EventListener(ApplicationReadyEvent.class)
@@ -58,6 +65,23 @@ public class DemoRepo {
         Iterable<Client> allClients = clientService.getClients();
         allClients.forEach(System.out::println);
 
+        // set user 1 - ADMIN
+        User user1 = new User();
+        user1.setUsername("admin@JarekIT.pl");
+        user1.setPassword("adminadmin");
+        userService.addAdmin(user1);
+
+        // set user 2 - USER
+        User user2 = new User();
+        user2.setUsername("Jarek@JarekIT.pl");
+        user2.setPassword("JJJJJJ");
+        userService.addUser(user2);
+
+        // set user 3 - USER
+        User user3 = new User();
+        user3.setUsername("Jaroslaw@JarekIT.pl");
+        user3.setPassword("JJJ");
+        userService.addUser(user3);
     }
 
 }

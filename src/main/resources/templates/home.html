@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="templateSimple :: header"></head>
+
+<body>
+
+<!--    div upper menu-->
+<div th:replace="templateSimple :: divUpperMenuLogged"></div>
+
+<!--    div main-->
+<div id="main">
+
+    <!--    div menu (left side)-->
+    <div th:replace="templateSimple :: divMenuLeft"></div>
+
+    <!--        div content (central) inside main-->
+    <div id="content" class="col-sm-10">
+        <br><br><br><br>
+        <h3>Welcome in revenue and expense ledger v2</h3>
+        <br><br>
+
+        <!--    add buttons-->
+        <div th:replace="templateSimple :: addButtons"></div>
+
+        <hr>
+
+        <br><br>
+
+        Hello: <span th:text="${name}"></span><br>
+        Your password: <span th:text="${password}"></span><br>
+        Your role: <span th:text="${role}"></span><br>
+        Your Id: <span th:text="${id}"></span><br>
+        Your clients: <span th:text="${clients}"></span><br>
+        <hr>
+
+        <b>How to use RaEL</b><br>
+        1) [UNDER CONSTRUCTION] Click there to get information about all invoices in 2019-07, sorted by create invoice day<br>
+        <a href="http://localhost:8080/book/2019-07">(localhost) /book/2019-07</a><br>
+        <a href="http://raelv2.herokuapp.com/book/2019-07">(heroku) /book/2019-07</a><br>
+
+
+    </div>
+</div>
+<!--    end div main-->
+
+
+
+</body>
+</html>

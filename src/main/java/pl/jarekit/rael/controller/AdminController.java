@@ -4,10 +4,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class AppController {
+public class AdminController {
 
-    @RequestMapping("/")
-    public String viewHomePage(){
-        return "login";
+    @RequestMapping("/admin")
+    public String forAdmin(){
+        return "admin";
     }
+
+
+
 }
