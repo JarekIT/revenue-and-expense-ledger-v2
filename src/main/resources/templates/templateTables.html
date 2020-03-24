@@ -61,7 +61,7 @@
         </tr>
 
         <tbody id="myTableClient">
-        <tr th:each="address: ${clients}">
+        <tr th:each="client: ${clients}">
                 <td style="text-align: center; " th:text="${client.id}"/>
                 <td th:text="${client.companyName}"/>
                 <td th:text="${client.personalName}"/>
@@ -70,7 +70,9 @@
                 <td style="text-align: right; " th:text="${client.personalNumber}"/>
                 <td>&nbsp;&nbsp;
                     <a class="btn btn-warning btn-sm"
-                                   href="/addressEdit?id=${client.address.id}" th:text="${client.address.id}</a>"/>
+                       th:href="@{'/addressEdit/' + ${client.address.id}}" th:text="${client.address.id}"></a>
+                </td>
+<!--                <td>fix</td>-->
                 <td th:text="${client.status}"/>
                 <td>&nbsp;&nbsp;<a class="btn btn-warning btn-sm"
                                    th:href="@{'/clientEdit/' + ${client.id}}">edit</a>
