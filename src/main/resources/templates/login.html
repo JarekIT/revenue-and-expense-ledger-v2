@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="templateSimple :: header"></head>
+
+<body>
+
+<!--    div upper menu-->
+<div th:replace="templateSimple :: divUpperMenuAnonymous"></div>
+
+<!--    div main-->
+<div id="main">
+
+    <!--        div content (central) inside main-->
+    <div class="container">
+        <form class="form-signin" method="post" action="/login">
+            <h2 class="form-signin-heading">Please sign in</h2>
+            <p>
+                <label for="username" class="sr-only">Username</label>
+                <input type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus>
+            </p>
+            <p>
+                <label for="password" class="sr-only">Password</label>
+                <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+            </p>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+
+            <!-- Register Button -->
+            <button class="btn btn-lg btn-primary btn-block" onclick="window.location.href = '/register';">Register</button>
+        </form>
+
+    </div>
+
+    <hr>
+
+    <!--    DEMO user login-->
+    <div class="container">
+        <form class="form-signin" method="post" action="/login">
+            <p>
+                <label for="username" class="sr-only" hidden="hidden">Username</label>
+                <input type="text" id="username" name="username" class="form-control" placeholder="Username" value="Jarek@JarekIT.pl" required autofocus>
+            </p>
+            <p>
+                <label for="password" class="sr-only" hidden="hidden" >Password</label>
+                <input type="password" id="password" name="password" class="form-control" placeholder="Password" value="JJJJJJ" required>
+            </p>
+            <p>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Login as user: Jarek@JarekIT.pl</button>
+            </p>
+        </form>
+    </div>
+
+    <!--    DEMO admin login-->
+    <div class="container">
+        <form class="form-signin" method="post" action="/login">
+            <p>
+                <label for="username" class="sr-only" hidden="hidden">Username</label>
+                <input type="text" id="username" name="username" class="form-control" placeholder="Username" value="admin@JarekIT.pl" hidden required autofocus>
+            </p>
+            <p>
+                <label for="password" class="sr-only" hidden="hidden" >Password</label>
+                <input type="password" id="password" name="password" class="form-control" placeholder="Password" value="adminadmin" hidden required>
+            </p>
+            <p>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Login as admin: admin@JarekIT.pl</button>
+            </p>
+        </form>
+    </div>
+
+</div>
+<!--    end div main-->
+
+</body>
+</html>
