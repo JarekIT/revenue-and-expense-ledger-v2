@@ -7,13 +7,19 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import pl.jarekit.rael.model.Address;
 import pl.jarekit.rael.model.Client;
+import pl.jarekit.rael.model.Invoice;
 import pl.jarekit.rael.model.User;
 import pl.jarekit.rael.service.AddressService;
 import pl.jarekit.rael.service.ClientService;
+import pl.jarekit.rael.service.InvoiceService;
 import pl.jarekit.rael.service.UserService;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Date;
 
 @Component
 public class DemoRepo {
@@ -22,13 +28,15 @@ public class DemoRepo {
     private ClientService clientService;
     private UserService userService;
     private PasswordEncoder passwordEncoder;
+    private InvoiceService invoiceService;
 
     @Autowired
-    public DemoRepo(AddressService addressService, ClientService clientService, UserService userService, PasswordEncoder passwordEncoder) {
+    public DemoRepo(AddressService addressService, ClientService clientService, UserService userService, PasswordEncoder passwordEncoder, InvoiceService invoiceService) {
         this.addressService = addressService;
         this.clientService = clientService;
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
+        this.invoiceService = invoiceService;
     }
 
     @EventListener(ApplicationReadyEvent.class)
@@ -57,13 +65,13 @@ public class DemoRepo {
         client2.setAddress(addressService.getAddressById(2L));
         clientService.saveClient(client2);
 
-        // write in console all addresses
-        Iterable<Address> allAddresses = addressService.getAddresses();
-        allAddresses.forEach(System.out::println);
-
-        // write in console all clients
-        Iterable<Client> allClients = clientService.getClients();
-        allClients.forEach(System.out::println);
+        int c = 3;
+        while (c<=6){
+            Client clientX = new Client("Jarek"+c, BigInteger.valueOf(1000000+c), "", "", null);
+            clientX.setAddress(addressService.getAddressById(c));
+            clientService.saveClient(clientX);
+            c++;
+        }
 
         // set user 1 - ADMIN
         User user1 = new User();
@@ -82,6 +90,26 @@ public class DemoRepo {
         user3.setUsername("Jaroslaw@JarekIT.pl");
         user3.setPassword("JJJ");
         userService.addUser(user3);
+
+
+        // invoice 10 add
+        int i = 1;
+        while (i < 10 ) {
+            Invoice invoice1 = new Invoice();
+            invoice1.setAmount(BigDecimal.valueOf(1000 * i));
+            invoice1.setClientBuyer(client);
+            invoice1.setClientSeller(client2);
+            invoice1.setType("FS");
+            invoice1.setClientPartner(client);
+            invoice1.setComment("comment");
+            invoice1.setDescription("description");
+            invoice1.setDateCreate( new Date()     );
+            invoice1.setDateSale(   new Date()     );
+            invoice1.setPeriod(     new Date()     );
+            invoice1.setInvoiceNumber("Inv 20/39281/" + i );
+            invoiceService.saveInvoice(invoice1);
+            i++;
+        }
     }
 
 }

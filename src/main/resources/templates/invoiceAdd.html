@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="templateSimple :: header"></head>
+
+<body>
+
+<!--    div upper menu-->
+<div th:replace="templateSimple :: divUpperMenuLogged"></div>
+
+<!--    div main-->
+<div id="main">
+
+    <!--    div menu (left side)-->
+    <div th:replace="templateSimple :: divMenuLeft"></div>
+
+    <!--        div content (central) inside main-->
+    <div id="content" class="col-sm-10">
+        <br><br><br><br>
+        <h3>Welcome in Invoice edit page</h3>
+        <br><br>
+
+        <!--    add buttons-->
+        <div th:replace="templateSimple :: addButtons"></div>
+
+        <br><br><br><br>
+
+        <!--    Invoice add form-->
+        <table class="table table-bordered" align="center">
+            <form th:action="@{/invoiceAdd}" th:object="${invoice}" method="post">
+
+                <div class="form-row">
+                    <div class="form-group col-xs-3">
+                        <label for="id">Id</label>
+                        <input type="number" name="id" th:field="*{id}" id="id" class="form-control" disabled>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-xs-3">
+                        <label for="dateCreate">Date create:</label>
+                        <input type="date" name="dateCreate" id="dateCreate" class="form-control" th:field="*{dateCreate}">
+                    </div>
+                    <div class="form-group col-xs-3">
+                        <label for="dateSale">Date create:</label>
+                        <input type="date" name="dateSale" id="dateSale" class="form-control" th:field="*{dateSale}">
+                    </div>
+                    <div class="form-group col-xs-3">
+                        <label for="period">Date period:</label>
+                        <input type="date" name="period" id="period" class="form-control" th:field="*{period}">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-xs-2">
+                        <label for="clientSellerOrBuyer">Partner ID:</label>
+                        <input type="text" name="clientSellerOrBuyer" id="clientSellerOrBuyer" class="form-control" th:field="*{clientSeller.id}">
+                    </div>
+                    <div class="form-group col-xs-4">
+                        <label for="clientSeller">Seller ID:</label>
+                        <input type="text" name="clientSeller" id="clientSeller" class="form-control" th:field="*{clientSeller.companyName}" disabled >
+                    </div>
+                    <div class="form-group col-xs-4">
+                        <label for="clientBuyer">Buyer ID:</label>
+                        <input type="text" name="clientBuyer" id="clientBuyer" class="form-control" th:field="*{clientBuyer.companyName}" disabled >
+                    </div>
+                    <div class="form-group col-xs-2">
+<!--                        <label for="idUserCompany">Added by:</label>-->
+<!--                        <input type="number" name="idUserCompany" id="idUserCompany" class="form-control" disabled th:field="*{loggeduser.client.id}" disabled >-->
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-xs-3">
+                        <label for="amount">Invoice amount:</label>
+                        <input type="number" name="amount" id="amount" class="form-control" th:field="*{amount}">
+                    </div>
+                    <div class="form-group col-xs-3">
+                        <label for="invoiceNumber">Invoice number:</label>
+                        <input type="text" name="invoiceNumber" id="invoiceNumber" class="form-control" th:field="*{invoiceNumber}">
+                    </div>
+                    <div class="form-group col-xs-3">
+                        <label for="type">Invoice type:</label>
+                        <input type="text" th:field="*{type}" disabled> <br>
+                        You are seller:<input type="radio" name="type"  id="type" value="FS">
+                        You are buyer:<input type="radio" name="type" id="type" value="FK">
+                    </div>
+                    <div class="form-group col-xs-3">
+                        <label for="category">category:</label>
+                        <input type="number" name="category" id="category" class="form-control" th:field="*{category}">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-xs-6">
+                        <label for="description">description:</label>
+                        <input type="text" name="description" id="description" class="form-control" th:field="*{description}">
+                        <br>
+                        <label for="comment">comment:</label>
+                        <input type="text" name="comment" id="comment" class="form-control" th:field="*{comment}">
+
+                    </div>
+                    <div class="form-group col-xs-6">
+                        <br><br>
+                        <img th:src="@{/img/category3.png}" alt="Invoice Category" style="width: 100%;height: auto;">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-xs-12">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn btn-primary" onclick="history.back()">Go back</button>
+                    </div>
+                </div>
+
+            </form>
+        </table>
+        <!--    Address List-->
+        <div th:replace="templateTables :: clients" ></div>
+
+    </div>
+</div>
+<!--    end div main-->
+
+
+</body>
+</html>
