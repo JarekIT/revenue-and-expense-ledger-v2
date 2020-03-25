@@ -1,15 +1,18 @@
 package pl.jarekit.rael.model;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Date;
 
 
 @Entity
 @Table
-public @Data class Invoice {
+public @Data
+class Invoice {
 
 
     @Id
@@ -17,23 +20,26 @@ public @Data class Invoice {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "id_client_seller")
     Client clientSeller;
 
     @ManyToOne
-    @JoinColumn(name="id_client_buyer")
+    @JoinColumn(name = "id_client_buyer")
     Client clientBuyer;
 
     @Column
     private String type;
 
-    @Column(name="invoice_number")
+    @Column(name = "invoice_number")
     private String invoiceNumber;
 
-    @Column(name="date_sale")
-    private LocalDate dateSale;
+    @Column(name = "date_sale")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date dateSale;
 
-    @Column(name="date_create")
-    private LocalDate dateCreate;
+    @Column(name = "date_create")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date dateCreate;
 
     @Column
     private BigDecimal amount;
@@ -42,7 +48,8 @@ public @Data class Invoice {
     private String description;
 
     @Column
-    private LocalDate period;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date period;
 
     @Column
     private int category;
