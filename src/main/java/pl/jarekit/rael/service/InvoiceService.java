@@ -21,9 +21,12 @@ public class InvoiceService {
 
 
     public Invoice saveInvoice(Invoice invoice){
+        putClientPartnerInInvoiceByType(invoice);
         LogUtils.saveLogStatic("Added invoice: " + invoice , Level.INFO);
         return invoiceRepo.save(invoice);
     }
+
+
 
     public Iterable<Invoice> saveInvoices(Iterable<Invoice>  invoices){
         LogUtils.saveLogStatic("Added list of invoices: " + invoices , Level.INFO);
@@ -83,4 +86,16 @@ public class InvoiceService {
         return invoiceRepo.existsById(id);
     }
 
+    private void putClientPartnerInInvoiceByType(Invoice invoice) {
+        switch (invoice.getType()) {
+            case "FK":
+                invoice.setClientPartner(invoice.getClientSeller());
+                break;
+            case "FS":
+                invoice.setClientPartner(invoice.getClientBuyer());
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + invoice.getType());
+        }
+    }
 }
