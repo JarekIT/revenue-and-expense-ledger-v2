@@ -1,0 +1,39 @@
+<html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="templateSimple :: header"></head>
+
+<body>
+
+<!--    div upper menu-->
+<div th:replace="templateSimple :: divUpperMenuLogged"></div>
+
+<!--    div main-->
+<div id="main">
+
+    <!--    div menu (left side)-->
+    <div th:replace="templateSimple :: divMenuLeft"></div>
+
+    <!--        div content (central) inside main-->
+    <div id="content" class="col-sm-10">
+        <br><br><br><br>
+        <h3>Welcome in Client page</h3>
+        <br><br>
+
+        <!--    add buttons-->
+        <div th:replace="templateSimple :: addButtons"></div>
+
+        <hr>
+        <!--    Address List-->
+        <div th:replace="templateTables :: invoices"></div>
+
+        <!--    Address Filter Script -->
+        <script th:replace="templateFilters :: clients"></script>
+
+    </div>
+</div>
+<!--    end div main-->
+
+
+
+</body>
+</html>
