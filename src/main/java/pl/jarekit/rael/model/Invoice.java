@@ -17,7 +17,6 @@ public @Data class Invoice {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="id_client_seller")
     Client clientSeller;
 
     @ManyToOne
@@ -61,7 +60,6 @@ public @Data class Invoice {
     }
 
 
-
     @Override
     public String toString() {
         return "Invoice{" +
@@ -78,7 +76,7 @@ public @Data class Invoice {
                 ", category=" + category +
                 ", comment='" + comment + '\'' +
                 '}' +
-                "\n" ;
+                "\n";
     }
 
 }
