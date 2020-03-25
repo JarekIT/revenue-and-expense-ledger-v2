@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <div th:fragment="addresses" class="container-smaller">
     <h2>Address list</h2>
@@ -62,24 +62,25 @@
 
         <tbody id="myTableClient">
         <tr th:each="client: ${clients}">
-                <td style="text-align: center; " th:text="${client.id}"/>
-                <td th:text="${client.companyName}"/>
-                <td th:text="${client.personalName}"/>
-                <td th:text="${client.personalSurname}"/>
-                <td style="text-align: right; " th:text="${client.companyNumber}"/>
-                <td style="text-align: right; " th:text="${client.personalNumber}"/>
+                <td style="text-align: center; " th:text="${client.id}"></td>
+                <td th:text="${client.companyName}"></td>
+                <td th:text="${client.personalName}"></td>
+                <td th:text="${client.personalSurname}"></td>
+                <td style="text-align: right; " th:text="${client.companyNumber}"></td>
+                <td style="text-align: right; " th:text="${client.personalNumber}"></td>
                 <td>&nbsp;&nbsp;
                     <a class="btn btn-warning btn-sm"
                        th:href="@{'/addressEdit/' + ${client.address.id}}" th:text="${client.address.id}"></a>
                 </td>
-<!--                <td>fix</td>-->
-                <td th:text="${client.status}"/>
+                <td th:text="${client.status}"></td>
                 <td>&nbsp;&nbsp;<a class="btn btn-warning btn-sm"
                                    th:href="@{'/clientEdit/' + ${client.id}}">edit</a>
                 </td>
-                <td>&nbsp;&nbsp;<a class="btn btn-danger btn-sm"
-                                   th:href="@{'/clientDelete/' + ${client.id}}">delete</a>
-
+                <td>
+                    <a class="btn btn-danger btn-sm"
+                       th:href="@{'/clientDelete/' + ${client.id}}"
+                       onclick="return confirm('Are you sure you want to delete this item?');">delete
+                    </a>
                 </td>
             </tr>
         </c:forEach>
@@ -88,6 +89,52 @@
 </div>
 
 
+<div th:fragment="invoices" class="container-smaller">
+    <h2>Invoice list</h2>
+    <input class="form-control" id="myInputInvoice" type="text" placeholder="Search..">
+    <br>
+    <table class="table table-bordered table-striped table-sm small">
+        <thead>
+        <tr style="text-align: center; ">
+            <th style="text-align: center; ">No</th>
+            <th style="text-align: center; ">Seller</th>
+            <th style="text-align: center; ">Buyer</th>
+            <th style="text-align: center; ">Type</th>
+            <th style="text-align: center; ">number</th>
+            <th style="text-align: center; ">date create</th>
+            <th style="text-align: center; ">date sale</th>
+            <th style="text-align: center; ">amount</th>
+            <th style="text-align: center; ">description</th>
+            <th style="text-align: center; ">Edit</th>
+            <th style="text-align: center; ">Delete</th>
+        </tr>
+        </thead>
 
+        <tbody id="myTableInvoice">
+        <tr th:each="invoice: ${invoices}">
+                <td style="text-align: center; " th:text="${invoice.id}"></td>
+                <td th:text="@{${invoice.clientSeller.companyName}+${invoice.clientSeller.personalName}+' '+${invoice.clientSeller.personalSurname}}"></td>
+                <td th:text="@{${invoice.clientBuyer.companyName}+${invoice.clientBuyer.personalName}+' '+${invoice.clientBuyer.personalSurname}}"></td>
+                <td style="text-align: center; " th:text="${invoice.type}"></td>
+                <td th:text="${invoice.invoiceNumber}"></td>
+                <td th:text="${invoice.dateCreate}"></td>
+                <td th:text="${invoice.dateSale}"></td>
+                <td style="text-align: right; " th:text="${invoice.amount}"></td>
+                <td th:text="${invoice.description}"></td>
+                <td>
+                    <a class="btn btn-warning btn-sm"
+                       th:href="@{'/invoiceEdit/' + ${invoice.id}}" th:text="${invoice.id}">
+                    </a>
+                </td>
+                <td>
+                    <a class="btn btn-danger btn-sm"
+                       th:href="@{'/invoiceDelete/' + ${invoice.id}}"
+                       onclick="return confirm('Are you sure you want to delete this item?');">delete
+                    </a>
+                </td>
+
+        </tbody>
+    </table>
+</div>
 
 </html>
