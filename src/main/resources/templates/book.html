@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="templateSimple :: header"></head>
+
+<body>
+
+<!--    div upper menu-->
+<div th:replace="templateSimple :: divUpperMenuLogged"></div>
+
+<!--    div main-->
+<div id="main">
+
+    <!--    div menu (left side)-->
+    <div th:replace="templateSimple :: divMenuLeft"></div>
+
+    <!--        div content (central) inside main-->
+    <div id="content" class="col-sm-10">
+        <br><br><br><br>
+        <h3>Welcome in Book page</h3>
+        <br><br>
+
+        <!--    add buttons-->
+        <div th:replace="templateSimple :: addButtons"></div>
+
+        <hr>
+        <!--    Book list-->
+        <form action="/book/" method="get">
+            <div class="form-row align-items-center">
+                <div class="col-auto">
+                    <label class="sr-only" for="inlineFormInputGroup">Username</label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Period:</div>
+                        </div>
+                        <input type="text" class="form-control" id="inlineFormInputGroup" name="/" placeholder="2019-12" aria-describedby="help">
+                        <small id="help" class="form-text text-muted">Period date must be yyyy-mm</small>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary mb-2">Generate</button>
+                </div>
+            </div>
+        </form>
+
+            <hr>
+
+            <div class="container-fluid px-0">
+                <div class="row">
+                    <div class="col-md-12">
+                        <img th:src="@{/img/category2.png}" alt="placeholder 960" class="img-responsive" />
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+            <!-- Book list -->
+            <div class="container-smaller">
+                <table class="table table-bordered table-striped table-sm small" id="res">
+                    <thead>
+                    <tr>
+                        <th style="text-align: center; ">No</th>
+                        <th style="text-align: center; ">date create</th>
+                        <th style="text-align: center; ">number</th>
+                        <th style="text-align: center; ">Seller/Buyer</th>
+                        <th style="text-align: center; ">description</th>
+
+                        <th style="text-align: center; ">income1</th>
+                        <th style="text-align: center; ">income2</th>
+                        <th style="text-align: center; ">Sum income</th>
+
+                        <th style="text-align: center; ">outcome1</th>
+                        <th style="text-align: center; ">outcome2</th>
+                        <th style="text-align: center; ">Sum outcome</th>
+
+                    </tr>
+                    </thead>
+
+                    <tbody id="myTableBook">
+                        <tr th:each="invoice: ${invoices}">
+                            <td style="text-align: center; " th:text="xxx"></td>
+                            <td th:text="${invoice.dateCreate}"></td>
+                            <td th:text="${invoice.invoiceNumber}"></td>
+                            <td th:text="@{${invoice.clientPartner.companyName}+${invoice.clientPartner.personalName}+' '+${invoice.clientPartner.personalSurname}}"> </td>
+                            <td th:text="${invoice.description}"></td>
+                            <td class="countable0" style="text-align: right; " th:text="${invoice.amountType[0]}"></td>
+                            <td class="countable1" style="text-align: right; " th:text="${invoice.amountType[1]}"></td>
+                            <td style="text-align: right; "
+                                th:value="${invoice.amountType[0]} + ${invoice.amountType[1]}">
+                            </td>
+                            <td class="countable2" style="text-align: right; " th:text="${invoice.amountType[2]}"></td>
+                            <td class="countable3" style="text-align: right; " th:text="${invoice.amountType[3]}"></td>
+                            <td style="text-align: right; "
+                                th:value="${invoice.amountType[2]} + ${invoice.amountType[3]}">
+                            </td>
+                        </tr>
+
+                    <!--        sum under the loop -->
+
+
+                    <!--        sum from previous months (under the loop) -->
+                    <tr style="text-align: right; ">
+                        <td class="empty-table"></td>
+                        <td class="empty-table"></td>
+                        <td class="empty-table"></td>
+                        <td class="empty-table"></td>
+                        <td>Sum from the previous period:</td>
+                        <td th:text="${sumAmountPreviousMonth[0]}"></td>
+                        <td th:text="${sumAmountPreviousMonth[1]}"></td>
+                        <td
+                                th:text="${sumAmountPreviousMonth[4]}">
+                        </td>
+                        <td th:text="${sumAmountPreviousMonth[2]}"></td>
+                        <td th:text="${sumAmountPreviousMonth[3]}"></td>
+                        <td
+                                th:text="${sumAmountPreviousMonth[5]}">
+                        </td>
+                    </tr>
+
+                        <!--        sum from this months (under the loop) -->
+                        <tr style="text-align: right; ">
+                            <td class="empty-table"></td>
+                            <td class="empty-table"></td>
+                            <td class="empty-table"></td>
+                            <td class="empty-table"></td>
+                            <td>Sum of the current period:</td>
+                            <td th:text="${sumAmountThisMonth[0]}"></td>
+                            <td th:text="${sumAmountThisMonth[1]}"></td>
+                            <td
+                                    th:text="${sumAmountThisMonth[4]}">
+                            </td>
+                            <td th:text="${sumAmountThisMonth[2]}"></td>
+                            <td th:text="${sumAmountThisMonth[3]}"></td>
+                            <td
+                                    th:text="${sumAmountThisMonth[5]}">
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+
+
+            <!--    Address Filter Script -->
+        <script th:replace="templateFilters :: addresses"></script>
+
+    </div>
+</div>
+<!--    end div main-->
+
+
+
+</body>
+</html>

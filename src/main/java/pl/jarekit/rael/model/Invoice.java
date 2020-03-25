@@ -5,8 +5,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
-import java.util.Date;
 
 
 @Entity
@@ -35,11 +35,11 @@ class Invoice {
 
     @Column(name = "date_sale")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date dateSale;
+    private LocalDate dateSale;
 
     @Column(name = "date_create")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date dateCreate;
+    private LocalDate dateCreate;
 
     @Column
     private BigDecimal amount;
@@ -49,7 +49,7 @@ class Invoice {
 
     @Column
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date period;
+    private LocalDate period;
 
     @Column
     private int category;
@@ -60,7 +60,8 @@ class Invoice {
     @Transient
     private BigDecimal[] amountType = new BigDecimal[4];
 
-    @Transient
+    @ManyToOne
+    @JoinColumn(name = "id_client_partner")
     private Client clientPartner;
 
     public Invoice() {
