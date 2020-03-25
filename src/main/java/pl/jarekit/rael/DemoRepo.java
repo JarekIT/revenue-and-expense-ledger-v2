@@ -16,10 +16,8 @@ import pl.jarekit.rael.service.UserService;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Date;
 
 @Component
 public class DemoRepo {
@@ -92,24 +90,67 @@ public class DemoRepo {
         userService.addUser(user3);
 
 
-        // invoice 10 add
+        // 9 invoice add
         int i = 1;
-        while (i < 10 ) {
+        while (i < 5 ) {
             Invoice invoice1 = new Invoice();
-            invoice1.setAmount(BigDecimal.valueOf(1000 * i));
+            invoice1.setAmount(BigDecimal.valueOf(1000.01 * i));
             invoice1.setClientBuyer(client);
             invoice1.setClientSeller(client2);
             invoice1.setType("FS");
             invoice1.setClientPartner(client);
             invoice1.setComment("comment");
             invoice1.setDescription("description");
-            invoice1.setDateCreate( new Date()     );
-            invoice1.setDateSale(   new Date()     );
-            invoice1.setPeriod(     new Date()     );
+            invoice1.setDateCreate( LocalDate.now()     );
+            invoice1.setDateSale(   LocalDate.now()     );
+            invoice1.setPeriod(     LocalDate.now()     );
             invoice1.setInvoiceNumber("Inv 20/39281/" + i );
+            invoice1.setCategory((i%2==0) ? 7 : 8);
             invoiceService.saveInvoice(invoice1);
             i++;
         }
+        while (i < 10 ) {
+            Invoice invoice1 = new Invoice();
+            invoice1.setAmount(BigDecimal.valueOf(1000.01 * i));
+            invoice1.setClientBuyer(client2);
+            invoice1.setClientSeller(client);
+            invoice1.setType("FK");
+            invoice1.setClientPartner(client2);
+            invoice1.setComment("comment");
+            invoice1.setDescription("description");
+            invoice1.setDateCreate( LocalDate.now()     );
+            invoice1.setDateSale(   LocalDate.now()     );
+            invoice1.setPeriod(     LocalDate.now()     );
+            invoice1.setInvoiceNumber("Rach 124/" + i );
+            invoice1.setCategory((i%2==0) ? 12 : 13);
+            invoiceService.saveInvoice(invoice1);
+            i++;
+        }
+        while (i < 14 ) {
+            Invoice invoice1 = new Invoice();
+            invoice1.setAmount(BigDecimal.valueOf(111.01 * i));
+            invoice1.setClientBuyer(client);
+            invoice1.setClientSeller(client2);
+            invoice1.setType("FS");
+            invoice1.setClientPartner(client);
+            invoice1.setComment("comment");
+            invoice1.setDescription("description");
+            invoice1.setDateCreate( LocalDate.now().minusMonths(1)     );
+            invoice1.setDateSale(   LocalDate.now().minusMonths(1)     );
+            invoice1.setPeriod(     LocalDate.now().minusMonths(1)     );
+            invoice1.setInvoiceNumber("Inv 20/234/" + i );
+            invoice1.setCategory((i%2==0) ? 7 : 8);
+            invoiceService.saveInvoice(invoice1);
+            i++;
+        }
+
+
+        System.out.println("- - - - - - - - - - - - -");
+        System.out.println("- - - - - - - - - - - - -");
+        System.out.println("- - - - - E N D - - - - -");
+        System.out.println("- - - - - - - - - - - - -");
+        System.out.println("- - - - - - - - - - - - -");
+
     }
 
 }
