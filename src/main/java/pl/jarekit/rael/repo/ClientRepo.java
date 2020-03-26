@@ -1,7 +1,9 @@
 package pl.jarekit.rael.repo;
 
 import org.springframework.data.repository.CrudRepository;
+import pl.jarekit.rael.model.Address;
 import pl.jarekit.rael.model.Client;
+import pl.jarekit.rael.model.User;
 
 import java.util.Optional;
 
@@ -27,4 +29,7 @@ public interface ClientRepo extends CrudRepository<Client, Long> {
 
     @Override
     void delete(Client client);
+
+    Iterable<Client> findAllByUser(User user);
+
 }

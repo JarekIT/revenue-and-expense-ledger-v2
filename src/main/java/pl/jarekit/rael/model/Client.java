@@ -42,10 +42,12 @@ public class Client {
     @Column
     private String status;
 
-    @OneToOne
-    @JoinColumn(name="id_user_company")
-    Client user;
+//    @OneToOne
+//    @JoinColumn(name="id_user_company")
+//    Client user;
 
+    @OneToOne
+    private User user;
 
 
     @OneToMany(mappedBy = "clientSeller", fetch = FetchType.EAGER)
@@ -58,13 +60,14 @@ public class Client {
     @ManyToMany(mappedBy = "clients",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     List<User> users;
 
-    public Client(String companyName, BigInteger companyNumber, String personalName, String personalSurname, BigInteger personalNumber) {
+    public Client(String companyName, BigInteger companyNumber, String personalName, String personalSurname, BigInteger personalNumber, User user) {
         this.companyName = companyName;
         this.companyNumber = companyNumber;
         this.personalName = personalName;
         this.personalSurname = personalSurname;
         this.personalNumber = personalNumber;
         this.status = "active";
+        this.user = user;
     }
 
     public Client() {

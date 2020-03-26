@@ -13,15 +13,17 @@ import java.util.Optional;
 public class InvoiceService {
     
     private InvoiceRepo invoiceRepo;
+    private LoginService loginService;
 
     @Autowired
-    public InvoiceService(InvoiceRepo invoiceRepo) {
+    public InvoiceService(InvoiceRepo invoiceRepo, LoginService loginService) {
         this.invoiceRepo = invoiceRepo;
+        this.loginService = loginService;
     }
-
 
     public Invoice saveInvoice(Invoice invoice){
         putClientPartnerInInvoiceByType(invoice);
+        invoice.setUser(loginService.getUser());
         LogUtils.saveLogStatic("Added invoice: " + invoice , Level.INFO);
         return invoiceRepo.save(invoice);
     }
@@ -35,7 +37,7 @@ public class InvoiceService {
 
     public Iterable<Invoice> getInvoices(){
         LogUtils.saveLogStatic("Loaded all invoices" , Level.INFO);
-        return invoiceRepo.findAll();
+        return invoiceRepo.findAllByUser(loginService.getUser());
     }
 
     public Invoice getInvoiceById(long id) {
