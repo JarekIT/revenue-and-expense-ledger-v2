@@ -1,26 +1,33 @@
 package pl.jarekit.rael.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import pl.jarekit.rael.logs.Level;
 import pl.jarekit.rael.logs.LogUtils;
 import pl.jarekit.rael.model.Address;
+import pl.jarekit.rael.model.User;
 import pl.jarekit.rael.repo.AddressRepo;
 
+import java.security.Principal;
 import java.util.Optional;
 
 @Service
 public class AddressService {
 
     private AddressRepo addressRepo;
+    private LoginService loginService;
 
     @Autowired
-    public AddressService(AddressRepo addressRepo) {
+    public AddressService(AddressRepo addressRepo, LoginService loginService) {
         this.addressRepo = addressRepo;
+        this.loginService = loginService;
     }
 
     public Address saveAddress(Address address){
         address.setStatus("active");
+        address.setUser(loginService.getUser());
         LogUtils.saveLogStatic("Added address: " + address , Level.INFO);
         return addressRepo.save(address);
     }
@@ -32,7 +39,7 @@ public class AddressService {
 
     public Iterable<Address> getAddresses(){
         LogUtils.saveLogStatic("Loaded all addresses" , Level.INFO);
-        return addressRepo.findAll();
+        return addressRepo.findAllByUser(loginService.getUser());
     }
 
     public Address getAddressById(long id) {

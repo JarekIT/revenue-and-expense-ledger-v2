@@ -67,6 +67,8 @@ class Invoice {
     public Invoice() {
     }
 
+    @OneToOne
+    private User user;
 
     @Override
     public String toString() {

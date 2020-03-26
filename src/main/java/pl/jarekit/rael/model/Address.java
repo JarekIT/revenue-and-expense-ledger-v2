@@ -38,17 +38,20 @@ public class Address {
 //    @OneToOne( mappedBy="address", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 //    Client client;
 
+    @OneToOne
+    private User user;
 
     public Address() {
     }
 
-    public Address(String street, String houseNumber, String apartmentNumber, String postcode, String city) {
+    public Address(String street, String houseNumber, String apartmentNumber, String postcode, String city, User user) {
         this.street = street;
         this.houseNumber = houseNumber;
         this.apartmentNumber = apartmentNumber;
         this.postcode = postcode;
         this.city = city;
         this.status = "active";
+        this.user = user;
     }
 
     @Override
