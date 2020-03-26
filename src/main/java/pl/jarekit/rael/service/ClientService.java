@@ -13,14 +13,17 @@ import java.util.Optional;
 public class ClientService {
 
     private ClientRepo clientRepo;
+    private LoginService loginService;
 
     @Autowired
-    public ClientService(ClientRepo clientRepo) {
+    public ClientService(ClientRepo clientRepo, LoginService loginService) {
         this.clientRepo = clientRepo;
+        this.loginService = loginService;
     }
 
     public Client saveClient(Client client){
         client.setStatus("active");
+        client.setUser(loginService.getUser());
         LogUtils.saveLogStatic("Added client: " + client , Level.INFO);
         return clientRepo.save(client);
     }
@@ -32,7 +35,7 @@ public class ClientService {
 
     public Iterable<Client> getClients(){
         LogUtils.saveLogStatic("Loaded all clients" , Level.INFO);
-        return clientRepo.findAll();
+        return clientRepo.findAllByUser(loginService.getUser());
     }
 
     public Client getClientById(long id) {
