@@ -36,15 +36,15 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group col-xs-3">
-                        <label for="dateCreate">Date create:</label>
+                        <label for="dateCreate">Date create: (yyyy-mm-dd)</label>
                         <input type="date" name="dateCreate" id="dateCreate" class="form-control" th:field="*{dateCreate}">
                     </div>
                     <div class="form-group col-xs-3">
-                        <label for="dateSale">Date create:</label>
+                        <label for="dateSale">Date sale: (yyyy-mm-dd)</label>
                         <input type="date" name="dateSale" id="dateSale" class="form-control" th:field="*{dateSale}">
                     </div>
                     <div class="form-group col-xs-3">
-                        <label for="period">Date period:</label>
+                        <label for="period">Date period: (yyyy-mm-dd)</label>
                         <input type="date" name="period" id="period" class="form-control" th:field="*{period}">
                     </div>
                 </div>
@@ -52,7 +52,7 @@
                 <div class="form-row">
                     <div class="form-group col-xs-2">
                         <label for="clientSellerOrBuyer">Partner ID:</label>
-                        <input type="text" name="clientSellerOrBuyer" id="clientSellerOrBuyer" class="form-control" th:field="*{clientSeller.id}">
+                        <input type="text" name="clientSellerOrBuyer" id="clientSellerOrBuyer" class="form-control" th:field="*{clientSeller.id}" required>
                     </div>
                     <div class="form-group col-xs-4">
                         <label for="clientSeller">Seller ID:</label>
@@ -63,8 +63,6 @@
                         <input type="text" name="clientBuyer" id="clientBuyer" class="form-control" th:field="*{clientBuyer.companyName}" disabled >
                     </div>
                     <div class="form-group col-xs-2">
-<!--                        <label for="idUserCompany">Added by:</label>-->
-<!--                        <input type="number" name="idUserCompany" id="idUserCompany" class="form-control" disabled th:field="*{loggeduser.client.id}" disabled >-->
                     </div>
                 </div>
 
@@ -85,7 +83,7 @@
                     </div>
                     <div class="form-group col-xs-3">
                         <label for="category">category:</label>
-                        <input type="number" name="category" id="category" class="form-control" th:field="*{category}">
+                        <input type="number" name="category" id="category" class="form-control" th:field="*{category}" required>
                     </div>
                 </div>
 
@@ -107,7 +105,12 @@
                 <div class="form-row">
                     <div class="form-group col-xs-12">
                         <button type="submit" class="btn btn-primary">Save</button>
-                        <button type="button" class="btn btn-primary" onclick="history.back()">Go back</button>
+                        <button type="button" class="btn btn-primary" onclick="history.back()">Go back</button><br>
+                        <small id="help" class="form-text text-muted">
+                            Remember to check
+                            (1) Invoice type
+                            (2) Right category: Seller = 7 or 8, Buyer = 12 or 13 - otherwise could be errors on site
+                        </small>
                     </div>
                 </div>
 

@@ -19,24 +19,51 @@
         <h3>Welcome in revenue and expense ledger v2</h3>
         <br><br>
 
-        <!--    add buttons-->
-        <div th:replace="templateSimple :: addButtons"></div>
-
         <hr>
-
-        <br><br>
-
-        Hello: <span th:text="${name}"></span><br>
+        <h4>Private Data:</h4><br>
+        Your login: <span th:text="${name}"></span><br>
         Your password: <span th:text="${password}"></span><br>
         Your role: <span th:text="${role}"></span><br>
         Your Id: <span th:text="${id}"></span><br>
-        Your clients: <span th:text="${clients}"></span><br>
-        <hr>
+        Your data: <span th:text="${client}"></span><br>
 
-        <b>How to use RaEL</b><br>
-        1) [UNDER CONSTRUCTION] Click there to get information about all invoices in 2019-07, sorted by create invoice day<br>
-        <a href="http://localhost:8080/book/2019-07">(localhost) /book/2019-07</a><br>
-        <a href="http://raelv2.herokuapp.com/book/2019-07">(heroku) /book/2019-07</a><br>
+        <hr>
+        <h4>How to use RaELv2:</h4><br>
+        <div>
+            <div class="col-sm-6">
+                <b>If you click demo user (Jarek@JarekIT.pl):</b><br>
+                1) Click there to get information about all invoices in 2019-07, sorted by create invoice day:
+                <a href="/book/2019-07"> /book/2019-07</a><br>
+                2) Click there to get information about all invoices in Book in present year, sorted by create invoice day:
+                <a href="/book"> /book</a><br>
+                3) You can view all invoices:
+                <a href="/invoice"> /invoice</a><br>
+                4) You can you filter above the invoice list
+
+            </div>
+            <div class="col-sm-6">
+                <b>If you have just registered:</b><br>
+                1) Add address (your address)
+                <a href="/addressAdd">/addressAdd</a><br>
+                2) Add client (write yourself)
+                <a href="/clientAdd">/clientAdd</a><br>
+                3) Set client to your account
+                <a href="/clientAdd">/setup/{clientId}</a><br>
+                <form onsubmit="window.location = '/setup/' + search.value; return false;">
+                    <div class="form-group form-inline">
+                        <input class="form-control" id="search" placeholder="clientId" type="search" name="search"/>
+                        <button class="btn btn-primary" type="submit">set</button>
+                    </div>
+                </form>
+                4) refresh page
+                <a href="/home">/home</a><br>
+                5) now you can use RaELv2<br>
+            </div>
+        </div>
+
+        <!--    add buttons-->
+        <h4>Quick buttons:</h4><br>
+        <div th:replace="templateSimple :: addButtons"></div>
 
 
     </div>

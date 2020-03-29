@@ -6,6 +6,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.jarekit.rael.model.User;
@@ -35,7 +36,7 @@ public class UserController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("id",user.getId());
         model.addAttribute("password",user.getPassword());
-        model.addAttribute("clients",user.getClients());
+        model.addAttribute("client",user.getClientUser());
 
         return "home";
     }
@@ -59,6 +60,11 @@ public class UserController {
         return "register";
     }
 
-
+    @GetMapping("/setup/{clientId}")
+    public String setClientToLoggedUser(@PathVariable long clientId){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        userService.setClientInUser(user, clientId);
+        return "home";
+    }
 
 }

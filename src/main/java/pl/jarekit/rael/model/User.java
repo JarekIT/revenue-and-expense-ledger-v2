@@ -33,6 +33,8 @@ public class User implements UserDetails {
     @Column
     private String role;
 
+    @OneToOne
+    Client clientUser;
 
     @ManyToMany(fetch = FetchType.EAGER)
 //    @ManyToMany(targetEntity = Client.class)
