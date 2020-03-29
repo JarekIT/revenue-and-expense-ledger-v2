@@ -11,10 +11,10 @@
 <div id="main">
 
     <!--    div menu (left side)-->
-    <div th:replace="templateSimple :: divMenuLeft"></div>
+<!--    <div th:replace="templateSimple :: divMenuLeft"></div>-->
 
     <!--        div content (central) inside main-->
-    <div id="content" class="col-sm-10">
+    <div id="content" class="col-sm-12">
         <br><br><br><br>
         <h3>Welcome in Book page</h3>
         <br><br>
@@ -24,21 +24,13 @@
 
         <hr>
         <!--    Book list-->
-        <form action="/book/" method="get">
-            <div class="form-row align-items-center">
-                <div class="col-auto">
-                    <label class="sr-only" for="inlineFormInputGroup">Username</label>
-                    <div class="input-group mb-2">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">Period:</div>
-                        </div>
-                        <input type="text" class="form-control" id="inlineFormInputGroup" name="/" placeholder="2019-12" aria-describedby="help">
-                        <small id="help" class="form-text text-muted">Period date must be yyyy-mm</small>
-                    </div>
-                </div>
-                <div class="col-auto">
+        <form onsubmit="window.location = '/book/' + search.value; return false;">
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                    <input class="form-control" id="search" placeholder="2020-03" type="search" name="search"></input>
                     <button type="submit" class="btn btn-primary mb-2">Generate</button>
                 </div>
+                <small id="help" class="form-text text-muted">Period date must be yyyy-mm</small>
             </div>
         </form>
 
@@ -77,7 +69,7 @@
 
                     <tbody id="myTableBook">
                         <tr th:each="invoice: ${invoices}">
-                            <td style="text-align: center; " th:text="xxx"></td>
+                            <td style="text-align: center; "></td>
                             <td th:text="${invoice.dateCreate}"></td>
                             <td th:text="${invoice.invoiceNumber}"></td>
                             <td th:text="@{${invoice.clientPartner.companyName}+${invoice.clientPartner.personalName}+' '+${invoice.clientPartner.personalSurname}}"> </td>
@@ -94,29 +86,8 @@
                             </td>
                         </tr>
 
-                    <!--        sum under the loop -->
-
-
-                    <!--        sum from previous months (under the loop) -->
-                    <tr style="text-align: right; ">
-                        <td class="empty-table"></td>
-                        <td class="empty-table"></td>
-                        <td class="empty-table"></td>
-                        <td class="empty-table"></td>
-                        <td>Sum from the previous period:</td>
-                        <td th:text="${sumAmountPreviousMonth[0]}"></td>
-                        <td th:text="${sumAmountPreviousMonth[1]}"></td>
-                        <td
-                                th:text="${sumAmountPreviousMonth[4]}">
-                        </td>
-                        <td th:text="${sumAmountPreviousMonth[2]}"></td>
-                        <td th:text="${sumAmountPreviousMonth[3]}"></td>
-                        <td
-                                th:text="${sumAmountPreviousMonth[5]}">
-                        </td>
-                    </tr>
-
-                        <!--        sum from this months (under the loop) -->
+                    <!--        2x sum under the loop -->
+                        <!--    1st sum this period (under the loop) -->
                         <tr style="text-align: right; ">
                             <td class="empty-table"></td>
                             <td class="empty-table"></td>
@@ -134,6 +105,27 @@
                                     th:text="${sumAmountThisMonth[5]}">
                             </td>
                         </tr>
+
+                        <!--        2nd sum from the beginning of the year (under the loop) -->
+                        <tr style="text-align: right; ">
+                            <td class="empty-table"></td>
+                            <td class="empty-table"></td>
+                            <td class="empty-table"></td>
+                            <td class="empty-table"></td>
+                            <td>Sum from the beginning of the year:</td>
+                            <td th:text="${sumAmountFromTheBeginningOfTheYear[0]}"></td>
+                            <td th:text="${sumAmountFromTheBeginningOfTheYear[1]}"></td>
+                            <td
+                                    th:text="${sumAmountFromTheBeginningOfTheYear[4]}">
+                            </td>
+                            <td th:text="${sumAmountFromTheBeginningOfTheYear[2]}"></td>
+                            <td th:text="${sumAmountFromTheBeginningOfTheYear[3]}"></td>
+                            <td
+                                    th:text="${sumAmountFromTheBeginningOfTheYear[5]}">
+                            </td>
+                        </tr>
+
+
 
                     </tbody>
                 </table>
