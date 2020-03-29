@@ -36,9 +36,6 @@ public class Client {
     @OneToOne(cascade= CascadeType.MERGE)
     Address address;
 
-    @Column(name="account_number")
-    private BigInteger accountNumber;
-
     @Column
     private String status;
 
@@ -83,7 +80,6 @@ public class Client {
                 ", personalSurname='" + personalSurname + '\'' +
                 ", personalNumber=" + personalNumber +
                 ", address=" + address +
-                ", accountNumber=" + accountNumber +
                 ", status='" + status + '\'' +
 //                ", \n address=" + address +
 //                ", \n user=" + user +

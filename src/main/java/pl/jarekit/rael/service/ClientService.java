@@ -63,7 +63,6 @@ public class ClientService {
             clientToEdit.setPersonalName(client.getPersonalName());
             clientToEdit.setAddress(client.getAddress());
             clientToEdit.setStatus(client.getStatus());
-            clientToEdit.setAccountNumber(client.getAccountNumber());
 
             log = log + ", to: " + clientToEdit;
             LogUtils.saveLogStatic(log, Level.INFO);
