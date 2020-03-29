@@ -10,6 +10,7 @@ import pl.jarekit.rael.model.Invoice;
 import pl.jarekit.rael.service.InvoiceService;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.*;
 
 @Controller
@@ -24,7 +25,7 @@ public class BookController {
 
     @GetMapping("/book")
     public String showEmptyBookPage(Model model) {
-        model.addAttribute("title", "Book (empty)");
+        model.addAttribute("title", "Book this year");
         model.addAttribute("invoices", invoiceService.getInvoices());
 
 
@@ -43,8 +44,8 @@ public class BookController {
 
         model.addAttribute("invoices", invoices);
 
-        BigDecimal[] sumAmount = SumAmountFromPreviousMonths(invoices, 2020, 12);
-        model.addAttribute("sumAmountPreviousMonth", sumAmount);
+        BigDecimal[] sumAmountThisYear = SumAmountFromBeginningOfTheYear(invoices, LocalDate.now().getYear(), 12);
+        model.addAttribute("sumAmountFromTheBeginningOfTheYear", sumAmountThisYear);
 
         BigDecimal[] sumAmountThisMonth = SumAmountFromThisMonth(invoices);
         model.addAttribute("sumAmountThisMonth", sumAmountThisMonth);
@@ -52,10 +53,12 @@ public class BookController {
         return "book";
     }
 
+
+
     @GetMapping("/book/{yyyy}-{mm}")
     public ModelAndView showBookPage(@PathVariable int yyyy, @PathVariable int mm) {
         ModelAndView mav = new ModelAndView("book");
-        mav.addObject("title", "Book");
+        mav.addObject("title", "Book: "+yyyy+"/"+mm);
 
 
         // create invoices List
@@ -75,14 +78,53 @@ public class BookController {
 
         mav.addObject("invoices", invoicesFilteredByPeriod);
 
-        BigDecimal[] sumAmountPreviousMonth = SumAmountFromPreviousMonths(invoices, yyyy, mm);
-        mav.addObject("sumAmountPreviousMonth", sumAmountPreviousMonth);
+        BigDecimal[] sumAmountPreviousMonth = SumAmountFromBeginningOfTheYear(invoices, yyyy, mm);
+        mav.addObject("sumAmountFromTheBeginningOfTheYear", sumAmountPreviousMonth);
 
         BigDecimal[] sumAmountThisMonth = SumAmountFromThisMonth(invoicesFilteredByPeriod);
         mav.addObject("sumAmountThisMonth", sumAmountThisMonth);
 
         return mav;
     }
+
+
+/*
+* todo Separately method to get all invoices in typed year (eg. /book/2019)
+*
+    @GetMapping("/book/{yyyy}")
+    public ModelAndView showBookPage(@PathVariable int yyyy) {
+        ModelAndView mav = new ModelAndView("book");
+        mav.addObject("title", "Book "+yyyy);
+
+
+        // create invoices List
+        List<Invoice> invoices = new ArrayList<>();
+
+        // get all invoices and add to List
+        invoiceService.getInvoices().forEach(invoices::add);
+
+        // create empty filtered list
+        List<Invoice> invoicesFilteredByPeriod = filterByYear(invoices, yyyy);
+
+        // sort List by DateCreate
+        invoicesFilteredByPeriod.sort(Comparator.comparing(Invoice::getDateCreate));
+
+        // set amount by invoice category
+        putAmountByCategory(invoicesFilteredByPeriod);
+
+        mav.addObject("invoices", invoicesFilteredByPeriod);
+
+        BigDecimal[] sumAmountSelectedYear = SumAmountFromBeginningOfTheYear(invoices, yyyy, 12);
+        mav.addObject("sumAmountFromTheBeginningOfTheYear", sumAmountSelectedYear);
+
+        BigDecimal[] sumAmountThisMonth = SumAmountFromThisMonth(invoicesFilteredByPeriod);
+        mav.addObject("sumAmountThisMonth", sumAmountThisMonth);
+
+        return mav;
+    }
+*/
+
+
 
 
 
@@ -93,6 +135,16 @@ public class BookController {
         invoices.stream()
                 .filter(invoice -> invoice.getPeriod().getYear() == yyyy)
                 .filter(invoice -> invoice.getPeriod().getMonthValue() == mm)
+                .forEach(invoicesFiltered::add);
+        return invoicesFiltered;
+    }
+
+    private List<Invoice> filterByYear(List<Invoice> invoices, int yyyy) {
+
+        List<Invoice> invoicesFiltered = new ArrayList<>();
+
+        invoices.stream()
+                .filter(invoice -> invoice.getPeriod().getYear() == yyyy)
                 .forEach(invoicesFiltered::add);
         return invoicesFiltered;
     }
@@ -121,7 +173,7 @@ public class BookController {
         return invoices;
     }
 
-    private BigDecimal[] SumAmountFromPreviousMonths(List<Invoice> invoices, int yyyy, int mm) {
+    private BigDecimal[] SumAmountFromBeginningOfTheYear(List<Invoice> invoices, int yyyy, int mm) {
 
         // initialization BigDecimal to 0 to avoid NullPointException
         BigDecimal[] sumAmount = new BigDecimal[6];
@@ -129,7 +181,7 @@ public class BookController {
 
         invoices.stream()
                 .filter(invoice -> invoice.getPeriod().getYear() == yyyy)
-                .filter(invoice -> invoice.getPeriod().getMonthValue() < mm)
+                .filter(invoice -> invoice.getPeriod().getMonthValue() <= mm)
                 .forEach(invoice -> {
                     switch (invoice.getCategory()) {
                         case 7:

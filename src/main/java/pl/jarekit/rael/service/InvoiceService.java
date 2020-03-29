@@ -92,9 +92,11 @@ public class InvoiceService {
         switch (invoice.getType()) {
             case "FK":
                 invoice.setClientPartner(invoice.getClientSeller());
+                invoice.setClientBuyer(loginService.getUser().getClientUser());
                 break;
             case "FS":
                 invoice.setClientPartner(invoice.getClientBuyer());
+                invoice.setClientSeller(loginService.getUser().getClientUser());
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + invoice.getType());

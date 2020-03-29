@@ -5,6 +5,7 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import pl.jarekit.rael.model.Address;
 import pl.jarekit.rael.model.Client;
@@ -44,7 +45,7 @@ public class DemoRepo {
     User user2 = new User();
 
 
-    @EventListener(ApplicationReadyEvent.class)
+//    @EventListener(ApplicationReadyEvent.class)
     public void runDemoRepo() {
 
         // set user 0 - ADMIN

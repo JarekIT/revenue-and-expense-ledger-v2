@@ -14,7 +14,7 @@ public class Client {
 
     @Id
     @Column(name = "id", unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name="company_name")
@@ -35,9 +35,6 @@ public class Client {
 
     @OneToOne(cascade= CascadeType.MERGE)
     Address address;
-
-    @Column(name="account_number")
-    private BigInteger accountNumber;
 
     @Column
     private String status;
@@ -83,7 +80,6 @@ public class Client {
                 ", personalSurname='" + personalSurname + '\'' +
                 ", personalNumber=" + personalNumber +
                 ", address=" + address +
-                ", accountNumber=" + accountNumber +
                 ", status='" + status + '\'' +
 //                ", \n address=" + address +
 //                ", \n user=" + user +

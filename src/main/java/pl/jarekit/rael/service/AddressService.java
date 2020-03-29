@@ -1,8 +1,10 @@
 package pl.jarekit.rael.service;
 
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import pl.jarekit.rael.logs.Level;
 import pl.jarekit.rael.logs.LogUtils;
@@ -13,6 +15,7 @@ import pl.jarekit.rael.repo.AddressRepo;
 import java.security.Principal;
 import java.util.Optional;
 
+@NoArgsConstructor
 @Service
 public class AddressService {
 
@@ -37,9 +40,14 @@ public class AddressService {
         return addressRepo.saveAll(addresses);
     }
 
-    public Iterable<Address> getAddresses(){
-        LogUtils.saveLogStatic("Loaded all addresses" , Level.INFO);
-        return addressRepo.findAllByUser(loginService.getUser());
+    public Iterable<Address> getAddresses() {
+        Iterable<Address> allByUser = addressRepo.findAllByUser(loginService.getUser());
+        if (allByUser == null) {
+            throw new UsernameNotFoundException("There is no addresses in:" + loginService.getUser().getUsername());
+        } else {
+            LogUtils.saveLogStatic("Loaded all addresses", Level.INFO);
+            return allByUser;
+        }
     }
 
     public Address getAddressById(long id) {
