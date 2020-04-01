@@ -10,7 +10,6 @@ import pl.jarekit.rael.model.Invoice;
 import pl.jarekit.rael.service.InvoiceService;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.*;
 
 @Controller
@@ -25,9 +24,7 @@ public class BookController {
 
     @GetMapping("/book")
     public String showEmptyBookPage(Model model) {
-        model.addAttribute("title", "Book this year");
-        model.addAttribute("invoices", invoiceService.getInvoices());
-
+        model.addAttribute("title", "all invoices in Book");
 
         // create invoices List
         List<Invoice> invoices = new ArrayList<>();
@@ -44,13 +41,10 @@ public class BookController {
 
         model.addAttribute("invoices", invoices);
 
-        BigDecimal[] sumAmountThisYear = SumAmountFromBeginningOfTheYear(invoices, LocalDate.now().getYear(), 12);
-        model.addAttribute("sumAmountFromTheBeginningOfTheYear", sumAmountThisYear);
+        BigDecimal[] sumAmountAllTime = SumAmountFromThisPeriod(invoices);
+        model.addAttribute("sumAmountAllTime", sumAmountAllTime);
 
-        BigDecimal[] sumAmountThisMonth = SumAmountFromThisMonth(invoices);
-        model.addAttribute("sumAmountThisMonth", sumAmountThisMonth);
-
-        return "book";
+        return "bookSummary";
     }
 
 
@@ -81,7 +75,7 @@ public class BookController {
         BigDecimal[] sumAmountPreviousMonth = SumAmountFromBeginningOfTheYear(invoices, yyyy, mm);
         mav.addObject("sumAmountFromTheBeginningOfTheYear", sumAmountPreviousMonth);
 
-        BigDecimal[] sumAmountThisMonth = SumAmountFromThisMonth(invoicesFilteredByPeriod);
+        BigDecimal[] sumAmountThisMonth = SumAmountFromThisPeriod(invoicesFilteredByPeriod);
         mav.addObject("sumAmountThisMonth", sumAmountThisMonth);
 
         return mav;
@@ -205,7 +199,7 @@ public class BookController {
         return sumAmount;
     }
 
-    private BigDecimal[] SumAmountFromThisMonth(List<Invoice> invoices) {
+    private BigDecimal[] SumAmountFromThisPeriod(List<Invoice> invoices) {
 
         // initialization BigDecimal to 0 to avoid NullPointException
         BigDecimal[] sumAmount = new BigDecimal[6];
