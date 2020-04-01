@@ -19,6 +19,7 @@
         </thead>
 
         <tbody id="myTableAddress">
+        <!--/*@thymesVar id="addresses" type="pl.jarekit.rael.controller.BookController"*/-->
         <tr th:each="address: ${addresses}">
             <td style="text-align: center; " th:text="${address.id}"/>
             <td th:text="${address.street}"/>
@@ -61,6 +62,7 @@
         </tr>
 
         <tbody id="myTableClient">
+        <!--/*@thymesVar id="clients" type="pl.jarekit.rael.controller.ClientController"*/-->
         <tr th:each="client: ${clients}">
                 <td style="text-align: center; " th:text="${client.id}"></td>
                 <td th:text="${client.companyName}"></td>
@@ -111,6 +113,7 @@
         </thead>
 
         <tbody id="myTableInvoice">
+        <!--/*@thymesVar id="invoices" type="pl.jarekit.rael.controller.InvoiceController"*/-->
         <tr th:each="invoice: ${invoices}">
                 <td style="text-align: center; " th:text="${invoice.id}"></td>
                 <td th:text="@{${invoice.clientSeller.companyName}+${invoice.clientSeller.personalName}+' '+${invoice.clientSeller.personalSurname}}"></td>
@@ -133,6 +136,42 @@
                     </a>
                 </td>
 
+        </tbody>
+    </table>
+</div>
+
+
+<div th:fragment="users" class="container-smaller">
+    <h2>User list</h2>
+    <input class="form-control" id="myInputUser" type="text" placeholder="Search..">
+    <br>
+    <table class="table table-bordered table-striped table-sm small">
+        <thead>
+        <th style="text-align: center; ">Id</th>
+        <th style="text-align: center; ">Username</th>
+        <th style="text-align: center; ">password</th>
+        <th style="text-align: center; ">Role</th>
+        <th style="text-align: center; ">User_Id</th>
+        <th style="text-align: center; ">Edit</th>
+        <th style="text-align: center; ">Delete</th>
+        </thead>
+
+        <tbody id="myTableUser">
+        <!--/*@thymesVar id="users" type="pl.jarekit.rael.controller.AdminController"*/-->
+        <tr th:each="user: ${users}">
+            <td style="text-align: center; " th:text="${user.id}"></td>
+            <td th:text="${user.username}"></td>
+            <td th:text="${user.password}"></td>
+            <td th:text="${user.role}"></td>
+            <td th:text="${user.clientUser}"></td>
+            <td>
+                <a class="btn btn-warning btn-sm">edit</a>
+            </td>
+            <td>
+                <a class="btn btn-danger btn-sm "
+                   onclick="return confirm('Are you sure you want to delete this item?');">delete</a>
+            </td>
+        </tr>
         </tbody>
     </table>
 </div>
