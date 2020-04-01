@@ -29,7 +29,7 @@
             </div>
         </form>
 
-            <hr>
+        <hr>
 
             <div class="container-fluid px-0">
                 <div class="row">
@@ -81,42 +81,22 @@
                             </td>
                         </tr>
 
-                    <!--        2x sum under the loop -->
-                        <!--    1st sum this period (under the loop) -->
+                    <!--        sum of all invoices under the loop -->
                         <tr style="text-align: right; ">
                             <td class="empty-table"></td>
                             <td class="empty-table"></td>
                             <td class="empty-table"></td>
                             <td class="empty-table"></td>
-                            <td>Sum of the current period:</td>
-                            <td th:text="${sumAmountThisMonth[0]}"></td>
-                            <td th:text="${sumAmountThisMonth[1]}"></td>
+                            <td>Sum of all invoices in book:</td>
+                            <td th:text="${sumAmountAllTime[0]}"></td>
+                            <td th:text="${sumAmountAllTime[1]}"></td>
                             <td
-                                    th:text="${sumAmountThisMonth[4]}">
+                                    th:text="${sumAmountAllTime[4]}">
                             </td>
-                            <td th:text="${sumAmountThisMonth[2]}"></td>
-                            <td th:text="${sumAmountThisMonth[3]}"></td>
+                            <td th:text="${sumAmountAllTime[2]}"></td>
+                            <td th:text="${sumAmountAllTime[3]}"></td>
                             <td
-                                    th:text="${sumAmountThisMonth[5]}">
-                            </td>
-                        </tr>
-
-                        <!--        2nd sum from the beginning of the year (under the loop) -->
-                        <tr style="text-align: right; ">
-                            <td class="empty-table"></td>
-                            <td class="empty-table"></td>
-                            <td class="empty-table"></td>
-                            <td class="empty-table"></td>
-                            <td>Sum from the beginning of the year:</td>
-                            <td th:text="${sumAmountFromTheBeginningOfTheYear[0]}"></td>
-                            <td th:text="${sumAmountFromTheBeginningOfTheYear[1]}"></td>
-                            <td
-                                    th:text="${sumAmountFromTheBeginningOfTheYear[4]}">
-                            </td>
-                            <td th:text="${sumAmountFromTheBeginningOfTheYear[2]}"></td>
-                            <td th:text="${sumAmountFromTheBeginningOfTheYear[3]}"></td>
-                            <td
-                                    th:text="${sumAmountFromTheBeginningOfTheYear[5]}">
+                                    th:text="${sumAmountAllTime[5]}">
                             </td>
                         </tr>
 
