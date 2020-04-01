@@ -40,7 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.headers().disable();
         http.authorizeRequests()
                 .antMatchers("/home").authenticated()
-                .antMatchers("/forAdmin").hasAuthority("ROLE_ADMIN")
+                .antMatchers("/admin").hasAuthority("ROLE_ADMIN")
                 .antMatchers("/address*","/addressEdit/*").authenticated()
                 .antMatchers("/client*","/clientEdit/*").authenticated()
                 .antMatchers("/invoice*","/invoiceEdit/*").authenticated()

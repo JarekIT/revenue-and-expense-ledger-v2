@@ -102,4 +102,9 @@ public class InvoiceService {
                 throw new IllegalStateException("Unexpected value: " + invoice.getType());
         }
     }
+
+    public Iterable<Invoice> getInvoicesForAdmin(){
+        LogUtils.saveLogStatic("Loaded all invoices for admin panel" , Level.WARNING);
+        return invoiceRepo.findAll();
+    }
 }

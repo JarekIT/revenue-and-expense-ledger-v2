@@ -33,4 +33,16 @@
                 });
             });
         </script>
+
+
+        <script th:fragment="users">
+                $(document).ready(function(){
+                        $("#myInputUser").on("keyup", function() {
+                                var value = $(this).val().toLowerCase();
+                                $("#myTableUser tr").filter(function() {
+                                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                                });
+                        });
+                });
+        </script>
 </html>

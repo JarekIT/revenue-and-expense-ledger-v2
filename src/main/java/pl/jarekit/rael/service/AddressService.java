@@ -97,4 +97,14 @@ public class AddressService {
     public boolean existById(long id){
         return addressRepo.existsById(id);
     }
+
+    public Iterable<Address> getAddressesForAdmin() {
+        Iterable<Address> all = addressRepo.findAll();
+        if (all == null) {
+            throw new UsernameNotFoundException("There is no addresses to get");
+        } else {
+            LogUtils.saveLogStatic("Loaded all addresses from admin page", Level.WARNING);
+            return all;
+        }
+    }
 }

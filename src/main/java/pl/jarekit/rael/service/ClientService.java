@@ -91,4 +91,8 @@ public class ClientService {
         return clientRepo.existsById(id);
     }
 
+    public Iterable<Client> getClientsForAdmin(){
+        LogUtils.saveLogStatic("Loaded all clients for admin panel" , Level.WARNING);
+        return clientRepo.findAll();
+    }
 }
