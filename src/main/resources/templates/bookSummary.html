@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="templateSimple :: header"></head>
+
+<body>
+
+<!--    div upper menu-->
+<div th:replace="templateSimple :: divUpperMenuLogged"></div>
+
+<!--    div main-->
+<div id="main">
+
+    <!--    div menu (left side)-->
+<!--    <div th:replace="templateSimple :: divMenuLeft"></div>-->
+
+    <!--        div content (central) inside main-->
+    <div id="content" class="col-sm-12">
+
+        <hr>
+        <!--    Book list-->
+        <form class="form-signin" onsubmit="window.location = '/book/' + search.value; return false;">
+            <div class="input-group mb-2" style="text-align: center;">
+                <div class="input-group-prepend">
+                    <input class="form-control" id="search" placeholder="2020-03" type="search" name="search"></input>
+                    <button type="submit" class="btn btn-primary mb-2">Generate</button>
+                </div>
+                <small class="form-text text-muted">(1) Period date must be yyyy-mm</small>
+                <small class="form-text text-muted">(2) To see all inv from 2019, type 2019-12</small>
+            </div>
+        </form>
+
+        <hr>
+
+            <div class="container-fluid px-0">
+                <div class="row">
+                    <div class="col-md-12">
+                        <img th:src="@{/img/category2.png}" alt="placeholder 960" class="img-responsive" />
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+            <!-- Book list -->
+            <div class="container-smaller">
+                <table class="table table-bordered table-striped table-sm small" id="res">
+                    <thead>
+                    <tr>
+                        <th style="text-align: center; ">No</th>
+                        <th style="text-align: center; ">date create</th>
+                        <th style="text-align: center; ">number</th>
+                        <th style="text-align: center; ">Seller/Buyer</th>
+                        <th style="text-align: center; ">description</th>
+
+                        <th style="text-align: center; ">income1</th>
+                        <th style="text-align: center; ">income2</th>
+                        <th style="text-align: center; ">Sum income</th>
+
+                        <th style="text-align: center; ">outcome1</th>
+                        <th style="text-align: center; ">outcome2</th>
+                        <th style="text-align: center; ">Sum outcome</th>
+
+                    </tr>
+                    </thead>
+
+                    <tbody id="myTableBook">
+                        <tr th:each="invoice: ${invoices}">
+                            <td style="text-align: center; "></td>
+                            <td th:text="${invoice.dateCreate}"></td>
+                            <td th:text="${invoice.invoiceNumber}"></td>
+                            <td th:text="@{${invoice.clientPartner.companyName}+${invoice.clientPartner.personalName}+' '+${invoice.clientPartner.personalSurname}}"> </td>
+                            <td th:text="${invoice.description}"></td>
+                            <td class="countable0" style="text-align: right; " th:text="${invoice.amountType[0]}"></td>
+                            <td class="countable1" style="text-align: right; " th:text="${invoice.amountType[1]}"></td>
+                            <td style="text-align: right; "
+                                th:value="${invoice.amountType[0]} + ${invoice.amountType[1]}">
+                            </td>
+                            <td class="countable2" style="text-align: right; " th:text="${invoice.amountType[2]}"></td>
+                            <td class="countable3" style="text-align: right; " th:text="${invoice.amountType[3]}"></td>
+                            <td style="text-align: right; "
+                                th:value="${invoice.amountType[2]} + ${invoice.amountType[3]}">
+                            </td>
+                        </tr>
+
+                    <!--        sum of all invoices under the loop -->
+                        <tr style="text-align: right; ">
+                            <td class="empty-table"></td>
+                            <td class="empty-table"></td>
+                            <td class="empty-table"></td>
+                            <td class="empty-table"></td>
+                            <td>Sum of all invoices in book:</td>
+                            <td th:text="${sumAmountAllTime[0]}"></td>
+                            <td th:text="${sumAmountAllTime[1]}"></td>
+                            <td
+                                    th:text="${sumAmountAllTime[4]}">
+                            </td>
+                            <td th:text="${sumAmountAllTime[2]}"></td>
+                            <td th:text="${sumAmountAllTime[3]}"></td>
+                            <td
+                                    th:text="${sumAmountAllTime[5]}">
+                            </td>
+                        </tr>
+
+
+
+                    </tbody>
+                </table>
+            </div>
+
+
+
+            <!--    Address Filter Script -->
+        <script th:replace="templateFilters :: addresses"></script>
+
+    </div>
+</div>
+<!--    end div main-->
+
+
+
+</body>
+</html>
