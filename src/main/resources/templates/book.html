@@ -15,22 +15,17 @@
 
     <!--        div content (central) inside main-->
     <div id="content" class="col-sm-12">
-        <br><br><br><br>
-        <h3>Welcome in Book page</h3>
-        <br><br>
-
-        <!--    add buttons-->
-        <div th:replace="templateSimple :: addButtons"></div>
 
         <hr>
         <!--    Book list-->
-        <form onsubmit="window.location = '/book/' + search.value; return false;">
-            <div class="input-group mb-2">
+        <form class="form-signin" onsubmit="window.location = '/book/' + search.value; return false;">
+            <div class="input-group mb-2" style="text-align: center;">
                 <div class="input-group-prepend">
                     <input class="form-control" id="search" placeholder="2020-03" type="search" name="search"></input>
                     <button type="submit" class="btn btn-primary mb-2">Generate</button>
                 </div>
-                <small id="help" class="form-text text-muted">Period date must be yyyy-mm</small>
+                <small class="form-text text-muted">(1) Period date must be yyyy-mm</small>
+                <small class="form-text text-muted">(2) To see all inv from 2019, type 2019-12</small>
             </div>
         </form>
 
