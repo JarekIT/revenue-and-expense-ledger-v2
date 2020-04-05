@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="templateSimple :: header"></head>
+
+<body>
+
+<!--    div upper menu-->
+<div th:replace="templateSimple :: divUpperMenuLogged"></div>
+
+<!--    div main-->
+<div id="main">
+
+        div menu (left side)
+    <div th:replace="templateSimple :: divMenuLeft"></div>
+
+    <!--        div content (central) inside main-->
+    <div id="content" class="col-sm-10">
+
+        <hr>
+        <!--    Summary upper text-->
+        <div class="row">
+            <div class="col-sm-6">
+                <form class="form-signin" onsubmit="window.location = '/summary/' + search.value; return false;">
+                    <div class="input-group mb-2" style="text-align: center;">
+                        <input class="form-control" id="search" placeholder="2019-19" type="search" name="search"/>
+                        <button type="submit" class="btn btn-primary mb-2">Generate</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-6">
+                <small class="form-text text-muted">(1) Write the sequence: yyyy-taxRate%</small><br>
+                <small class="form-text text-muted">(2) yyyy - write year to summarize (eq 2019)</small><br>
+                <small class="form-text text-muted">(3) taxRate% - write tax rate in percent (eq 19)</small><br>
+                <small class="form-text text-muted">(4) sample: <a href="/summary/2019-19">/summary/2019-19</a></small>
+            </div>
+        </div>
+
+        <hr>
+
+            <!-- Summary list -->
+        <div class="container-smaller" >
+
+            <table class="table table-bordered table-striped table-sm small" id="res">
+                <h4>
+                    Summarize Tax Year: <span th:text="${yearText}"/><br>
+                    Company: <span th:text="${user.getCompanyName()}"/><br>
+                    Address:
+                    <span th:text="${user.getAddress().getStreet()}"/>
+                    <span th:text="${user.getAddress().getApartmentNumber()}"/>
+                    <span th:text="${user.getAddress().getHouseNumber()}"/>,
+                    <span th:text="${user.getAddress().getPostcode()}"/>
+                    <span th:text="${user.getAddress().getCity()}"/>
+                </h4>
+                <tr>
+                    <th style="text-align: center; ">(1) <br>Month</th>
+                    <th style="text-align: center; ">(2) <br>Revenue</th>
+                    <th style="text-align: center; ">(3) <br>Expense</th>
+                    <th style="text-align: center; ">(4) <br>Profit<br>[ 2 - 3 ]</th>
+                    <th style="text-align: center; ">(5) <br>Tax<br>[ 4 * tax% ]</th>
+                    <th style="text-align: center; ">(6) <br>Net Profit<br>[ 4 - 5 ]</th>
+                </tr>
+
+                <div th:each="stats : ${#numbers.sequence(1,12)}">
+                    <tr>
+                        <td style="text-align: center; " th:text="${stats}"></td>
+                        <td style="text-align: right; " th:text="${summaryYear.get(0).get(stats)}"></td>
+                        <td style="text-align: right; " th:text="${summaryYear.get(1).get(stats)}"></td>
+                        <td style="text-align: right; " th:text="${summaryYear.get(2).get(stats)}"></td>
+                        <td style="text-align: right; " th:text="${summaryYear.get(3).get(stats)}"></td>
+                        <td style="text-align: right; " th:text="${summaryYear.get(4).get(stats)}"></td>
+                    </tr>
+                </div>
+
+            </table>
+        </div>
+    </div>
+</div>
+<!--    end div main-->
+
+
+
+</body>
+</html>
