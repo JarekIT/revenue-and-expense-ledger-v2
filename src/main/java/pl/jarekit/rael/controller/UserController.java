@@ -41,30 +41,20 @@ public class UserController {
         return "home";
     }
 
-    @RequestMapping("/login")
-    public String login(){
-        return "login";
-    }
 
-    @RequestMapping("/register")
-    public String signUp(Model model){
-        model.addAttribute("user",new User());
-        return "register";
-    }
-
-
-    @PostMapping("/register")
-    public String signUp(User appUser){
-        System.out.println(appUser);
-        userService.addUser(appUser);
-        return "register";
-    }
 
     @GetMapping("/setup/{clientId}")
     public String setClientToLoggedUser(@PathVariable long clientId){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         userService.setClientInUser(user, clientId);
-        return "home";
+        return "redirect:/home";
+    }
+
+    @RequestMapping("/changePassword/{newPassword}")
+    public String changePassword(@PathVariable String newPassword){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        userService.setPasswordInUser(user, newPassword);
+        return "redirect:/home";
     }
 
 }
