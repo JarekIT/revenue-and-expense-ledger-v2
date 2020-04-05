@@ -49,4 +49,10 @@ public class UserService {
         LogUtils.saveLogStatic("Loaded all users for admin panel" , Level.WARNING);
         return userRepo.findAll();
     }
+
+    public User setPasswordInUser(User user, String newPassword) {
+        user.setPassword(passwordEncoder.encode(newPassword));
+        LogUtils.saveLogStatic("Changed password for user: " + user, Level.WARNING);
+        return userRepo.save(user);
+    }
 }
