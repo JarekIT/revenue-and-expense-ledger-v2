@@ -24,6 +24,7 @@
                     <input class="form-control" id="search" placeholder="2019-07" type="search" name="search"/>
                     <button type="submit" class="btn btn-primary mb-2">Generate</button>
                 </div>
+                        <button class="btn btn-primary mb-2" onclick="window.print()">Print</button>
                 <small class="form-text text-muted">(1) Period date must be yyyy-mm</small><br>
                 <small class="form-text text-muted">(2) To see all inv from 2019, type 2019-12</small>
             </div>
@@ -41,7 +42,7 @@
 
             <hr>
             <!-- Book list -->
-            <div class="container-smaller">
+            <div class="container-smaller" id="section-to-print">
                 <table class="table table-bordered table-striped table-sm small" id="res">
                     <thead>
                     <tr>
