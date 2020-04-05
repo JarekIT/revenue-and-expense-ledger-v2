@@ -10,25 +10,34 @@
 <!--    div main-->
 <div id="main">
 
-    <!--    div menu (left side)-->
+    <!--        div menu (left side)-->
 <!--    <div th:replace="templateSimple :: divMenuLeft"></div>-->
 
     <!--        div content (central) inside main-->
     <div id="content" class="col-sm-12">
 
         <hr>
-        <!--    Book list-->
-        <form class="form-signin" onsubmit="window.location = '/book/' + search.value; return false;">
-            <div class="input-group mb-2" style="text-align: center;">
-                <div class="input-group-prepend">
-                    <input class="form-control" id="search" placeholder="2019-07" type="search" name="search"/>
-                    <button type="submit" class="btn btn-primary mb-2">Generate</button>
-                </div>
+        <!--    Book upper text -->
+        <div class="row">
+            <div class="col-sm-6">
+                <form class="form-signin" onsubmit="window.location = '/book/' + search.value; return false;">
+                    <div class="input-group mb-2" style="text-align: center;">
+                        <input class="form-control" id="search" placeholder="2019-07" type="search" name="search"/>
+                        <button type="submit" class="btn btn-primary mb-2">Generate</button>
                         <button class="btn btn-primary mb-2" onclick="window.print()">Print</button>
-                <small class="form-text text-muted">(1) Period date must be yyyy-mm</small><br>
-                <small class="form-text text-muted">(2) To see all inv from 2019, type 2019-12</small>
+                        <button class="btn btn-primary" onclick="window.history.go(-1); return false;">Back</button>
+
+                    </div>
+                </form>
             </div>
-        </form>
+            <div class="col-sm-6">
+                <small class="form-text text-muted">(1) Period date must be yyyy-mm</small><br>
+                <small class="form-text text-muted">(2) To see all invoices in 2019/07, type 2019-7</small><br>
+                <small class="form-text text-muted">(3) sample: <a href="/book/2019-7">/book/2019-7</a></small><br>
+                <small class="form-text text-muted">(4) To see all invoices in Book, put empty field</small><br>
+                <small class="form-text text-muted">(5) sample: <a href="/book">/book</a></small>
+            </div>
+        </div>
 
         <hr>
 
@@ -41,6 +50,7 @@
             </div>
 
             <hr>
+
             <!-- Book list -->
             <div class="container-smaller" id="section-to-print">
                 <table class="table table-bordered table-striped table-sm small" id="res">
