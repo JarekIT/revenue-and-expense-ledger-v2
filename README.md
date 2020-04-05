@@ -5,9 +5,24 @@
 * [Features](#features)
 
 ## Preview
-* Add Invoice
+
 
 ## Features
-* xxx
-* yyy
-* zzz
+
++ 2.5.4
+    + add change password function
++ 2.5.3
+    + visually improve frontend
+    + add admin panel
++ 2.5.2
+    + visually improve frontend
++ 2.5.1
+    + add description in Home page
+    + delete EventListener in runDemoRepo()
+    + add functions to set client data to Logged User
+    + handle null case in Iterable getAddresses()
+    + handle null case in UserDetails loadUserByUsername(String s)
+    + add new MySql (freemysqlhosting.net)
+    + small fixes in html files
+    + delete List of clients in User
+    + delete account number from Client

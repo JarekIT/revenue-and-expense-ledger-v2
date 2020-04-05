@@ -23,6 +23,12 @@
         <h4>Private Data:</h4><br>
         Your login: <span th:text="${name}"></span><br>
         Your password: <span th:text="${password}"></span><br>
+        <form onsubmit="window.location = '/changePassword/' + search.value; return false;">
+            <div class="form-group form-inline">
+                <input class="form-control" placeholder="change password" type="search" name="search"/>
+                <button class="btn btn-primary" type="submit">change</button>
+            </div>
+        </form>
         Your role: <span th:text="${role}"></span><br>
         Your Id: <span th:text="${id}"></span><br>
         Your data: <span th:text="${client}"></span><br>
@@ -66,11 +72,6 @@
                 2) You can you filter all lists
             </div>
         </div>
-
-        <!--    add buttons-->
-        <h4>Quick buttons:</h4><br>
-        <div th:replace="templateSimple :: addButtons"></div>
-
 
     </div>
 </div>
