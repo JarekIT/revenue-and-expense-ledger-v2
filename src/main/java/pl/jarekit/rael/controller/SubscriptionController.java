@@ -1,0 +1,42 @@
+package pl.jarekit.rael.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.servlet.ModelAndView;
+import pl.jarekit.rael.service.LoginService;
+import pl.jarekit.rael.service.SubscriptionService;
+
+@Controller
+public class SubscriptionController {
+
+
+    private SubscriptionService subscriptionService;
+    private LoginService loginService;
+
+    @Autowired
+    public SubscriptionController(SubscriptionService subscriptionService, LoginService loginService) {
+        this.subscriptionService = subscriptionService;
+        this.loginService = loginService;
+    }
+
+    @GetMapping("/subscription")
+    public String showSubscriptionPage(Model model) {
+        model.addAttribute("title", "subscription page");
+        model.addAttribute("expireDate", loginService.getUser().getExpireDate());
+        model.addAttribute("generatedCode", subscriptionService.generateCode());
+        return "subscription";
+    }
+
+    @GetMapping("/subscription/{code}")
+    public String showSubscriptionPage2(@PathVariable int code, Model model) {
+        subscriptionService.extendSubscription(code);
+        return "redirect:/subscription";
+    }
+
+
+
+
+}
