@@ -46,6 +46,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/invoice*","/invoiceEdit/*").authenticated()
                 .antMatchers("/book","/book/*").authenticated()
                 .antMatchers("/summary","/summary/*").authenticated()
+                .antMatchers("/subscription","subscription/*").authenticated()
                 .and()
                 .formLogin().loginPage("/login").defaultSuccessUrl("/home")
                 .and()
