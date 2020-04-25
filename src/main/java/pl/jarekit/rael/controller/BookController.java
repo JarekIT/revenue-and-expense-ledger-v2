@@ -1,12 +1,14 @@
 package pl.jarekit.rael.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 import pl.jarekit.rael.model.Invoice;
+import pl.jarekit.rael.model.User;
 import pl.jarekit.rael.service.InvoiceService;
 
 import java.math.BigDecimal;
@@ -44,6 +46,9 @@ public class BookController {
         BigDecimal[] sumAmountAllTime = SumAmountFromThisPeriod(invoices);
         model.addAttribute("sumAmountAllTime", sumAmountAllTime);
 
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("user",user.getClientUser());
+
         return "bookSummary";
     }
 
@@ -77,6 +82,11 @@ public class BookController {
 
         BigDecimal[] sumAmountThisMonth = SumAmountFromThisPeriod(invoicesFilteredByPeriod);
         mav.addObject("sumAmountThisMonth", sumAmountThisMonth);
+
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        mav.addObject("user",user.getClientUser());
+        mav.addObject("year",yyyy);
+        mav.addObject("month",mm);
 
         return mav;
     }
