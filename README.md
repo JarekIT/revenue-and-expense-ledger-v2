@@ -9,6 +9,12 @@
 
 ## Features
 
++ 2.6.0
+    + create Subscription system
+    + add new MySql (ClearDB)
+    + add favicon
+    + add descriptions above the tables
+    + correct few typos
 + 2.5.4
     + add change password function
 + 2.5.3

@@ -16,7 +16,7 @@
     <!--        div content (central) inside main-->
     <div id="content" class="col-sm-10">
         <br><br><br><br>
-        <h3>Welcome in revenue and expense ledger v2</h3>
+        <h3>Welcome in Revenue and Expense Ledger v2</h3>
         <br><br>
 
         <hr>
@@ -31,6 +31,8 @@
         </form>
         Your role: <span th:text="${role}"></span><br>
         Your Id: <span th:text="${id}"></span><br>
+        When your account expire: <span th:text="${expireDate}"></span>
+        <a href="/subscription"> -> extend the subscription</a><br>
         Your data: <span th:text="${client}"></span><br>
 
         <hr>
@@ -56,13 +58,17 @@
             </div>
             <div class="col-sm-4">
                 <b>If you click demo user (Jarek@JarekIT.pl):</b><br>
-                1) Click there to get information about all invoices in 2019-07, sorted by create invoice day:
+                1) Click there to summary month by month all invoices in present year
+                and calculate tax to pay 19% tax rate:
+                <a href="/summary/2019-19">/summary/2019-19</a><br>
+                2) Click there to get information about all invoices in 2019-07, sorted by create invoice day:
                 <a href="/book/2019-07"> /book/2019-07</a><br>
-                2) Click there to get information about all invoices in Book in present year, sorted by create invoice day:
+                3) Click there to get information about all invoices in Book in present year,
+                sorted by create invoice day:
                 <a href="/book"> /book</a><br>
-                3) You can view all invoices:
+                4) You can view all invoices:
                 <a href="/invoice"> /invoice</a><br>
-                4) You can you filter above the invoice list
+                5) You can you filter above the invoice list
 
             </div>
             <div class="col-sm-4">
