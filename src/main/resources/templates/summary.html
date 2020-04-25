@@ -43,7 +43,7 @@
 
             <table class="table table-bordered table-striped table-sm small" id="res">
                 <h4>
-                    Summarize Tax Year: <span th:text="${yearText}"/><br>
+                    Summary Tax Year: <span th:text="${yearText}"/><br>
                     Company: <span th:text="${user.getCompanyName()}"/><br>
                     Address:
                     <span th:text="${user.getAddress().getStreet()}"/>
@@ -57,7 +57,7 @@
                     <th style="text-align: center; ">(2) <br>Revenue</th>
                     <th style="text-align: center; ">(3) <br>Expense</th>
                     <th style="text-align: center; ">(4) <br>Profit<br>[ 2 - 3 ]</th>
-                    <th style="text-align: center; ">(5) <br>Tax<br>round([ 4 * tax% ])</th>
+                    <th style="text-align: center; ">(5) <br>Tax<br>[ 4 * tax% ]</th>
                     <th style="text-align: center; ">(6) <br>Net Profit<br>[ 4 - 5 ]</th>
                 </tr>
 
