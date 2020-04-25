@@ -8,7 +8,8 @@
 
 
 ## Features
-
++ 2.6.1
+     + hidden subscription page only for anonymous users
 + 2.6.0
     + create Subscription system
     + add new MySql (ClearDB)
