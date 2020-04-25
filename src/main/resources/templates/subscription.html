@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="templateSimple :: header"></head>
+
+<body>
+
+<!--    div upper menu-->
+<div th:replace="templateSimple :: divUpperMenuLogged"></div>
+
+<!--    div main-->
+<div id="main">
+
+    <!--    div menu (left side)-->
+    <div th:replace="templateSimple :: divMenuLeft"></div>
+
+    <!--        div content (central) inside main-->
+    <div id="content" class="col-sm-10">
+        <br><br><br><br>
+        <h3>Welcome in Subscription page</h3>
+        <br><br>
+
+        <hr>
+        Your account will expire on: <b><span th:text="${expireDate}"></span></b><br><br>
+
+        You can extend subscription by 1 month, just enter code: <br>
+        <form onsubmit="window.location = '/subscription/' + search.value; return false;">
+            <div class="form-group form-inline">
+                <input class="form-control" type="search" placeholder="code" name="search"/>
+                <button class="btn btn-primary" type="submit">submit code</button>
+            </div>
+        </form>
+
+        Don't have any code? <br>
+        a) <a href="https://www.paypal.me/raelv2">Send cash by PayPal</a><br>
+        b) In demo mode you can generate 1 month code: <b><span th:text="${generatedCode}"></span></b><br>
+        Refresh Page to generate another code<br>
+    </div>
+</div>
+<!--    end div main-->
+
+</body>
+</html>
+

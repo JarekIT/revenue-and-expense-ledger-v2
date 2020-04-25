@@ -4,11 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import pl.jarekit.rael.service.SubscriptionService;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -36,6 +40,9 @@ public class User implements UserDetails {
     @OneToOne
     Client clientUser;
 
+    @Column
+    private LocalDate expireDate;
+
     @ManyToMany(fetch = FetchType.EAGER)
 //    @ManyToMany(targetEntity = Client.class)
     @JoinTable(name="user_client" ,
@@ -47,10 +54,10 @@ public class User implements UserDetails {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", email='" + username + '\'' +
+                ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                '}' +
-                "\n" ;
+                ", expireDate=" + expireDate +
+                '}';
     }
 
     @Override
@@ -65,7 +72,7 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return true;
+        return expireDate.isAfter(LocalDate.now());
     }
 
     @Override

@@ -14,25 +14,24 @@ import java.util.Optional;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     private UserRepo userRepo;
+    private SubscriptionService subscriptionService;
 
     @Autowired
-    public UserDetailsServiceImpl(UserRepo userRepo) {
+    public UserDetailsServiceImpl(UserRepo userRepo, SubscriptionService subscriptionService) {
         this.userRepo = userRepo;
+        this.subscriptionService = subscriptionService;
     }
+
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        // todo throw if not exist
-        Optional<User> byUsername = userRepo.findByUsername(s);
-        if (!byUsername.isPresent()){
-            throw new UsernameNotFoundException("Not found username named: " + s);
+        Optional<User> loadedUser = userRepo.findByUsername(s);
+        if (loadedUser.isPresent()){
+            subscriptionService.giveFree7DaysSubscriptionIfFirstTimeLogin(loadedUser.get());
+            return loadedUser.get();
         } else {
-            return byUsername.get();
+            throw new UsernameNotFoundException("Not found username named: " + s);
         }
     }
 
-
-    public void setClientToUser(){
-
-    }
 }
