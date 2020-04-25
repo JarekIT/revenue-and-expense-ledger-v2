@@ -22,7 +22,7 @@ public class SubscriptionService {
         this.userRepo = userRepo;
     }
 
-    void checkFirstTimeLogin(User loadedUser){
+    void giveFree7DaysSubscriptionIfFirstTimeLogin(User loadedUser){
         if (loadedUser.getExpireDate() == null){
             setFreeSubscriptionFor7Days(loadedUser);
         }
