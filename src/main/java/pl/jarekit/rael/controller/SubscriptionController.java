@@ -23,10 +23,10 @@ public class SubscriptionController {
     }
 
     @GetMapping("/subscription")
-    public String showSubscriptionPage(Model model) {
+    public String showSubscriptionPage(Model model, @AuthenticationPrincipal User user) {
         model.addAttribute("title", "subscription page");
         model.addAttribute("expireDate", loginService.getUser().getExpireDate());
-        model.addAttribute("generatedCode", subscriptionService.generateCode());
+        model.addAttribute("generatedCode", subscriptionService.generateCode(user));
         return "subscription";
     }
 

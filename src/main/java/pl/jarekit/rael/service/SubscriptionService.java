@@ -1,6 +1,7 @@
 package pl.jarekit.rael.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import pl.jarekit.rael.logs.Level;
 import pl.jarekit.rael.logs.LogUtils;
@@ -13,12 +14,10 @@ import java.util.Random;
 @Service
 public class SubscriptionService {
 
-    private LoginService loginService;
     private UserRepo userRepo;
 
     @Autowired
-    public SubscriptionService(LoginService loginService, UserRepo userRepo) {
-        this.loginService = loginService;
+    public SubscriptionService(UserRepo userRepo) {
         this.userRepo = userRepo;
     }
 
@@ -39,38 +38,37 @@ public class SubscriptionService {
                 Level.INFO);
     }
 
-    public void extendSubscription(int code){
-        if (validateCode(code)){
-            User user = loginService.getUser();
+    public void extendSubscription(int code, User user){
+        if (validateCode(code, user)){
             LocalDate expireDate = user.getExpireDate();
             LocalDate newExpireDate = expireDate.plusMonths(1);
             user.setExpireDate(newExpireDate);
             userRepo.save(user);
 
             LogUtils.saveLogStatic(String.format("Subscription: extended for 1 month, by: %s",
-                    loginService.getUser().getUsername()),
+                    user.getUsername()),
                     Level.INFO);
         }
     }
 
-    public int generateCode(){
+    public int generateCode(User user){
         int randomNumber = new Random().nextInt(52940) + 5882;
         int code = ( randomNumber * 17 ) + 7;
         LogUtils.saveLogStatic(String.format("Subscription: generated code: %d by: %s",
-                code, loginService.getUser().getUsername()),
+                code, user.getUsername()),
                 Level.INFO);
         return code;
     }
 
-    private boolean validateCode(int code){
+    private boolean validateCode(int code, User user){
         if (( code - 7 ) % 17 == 0){
             LogUtils.saveLogStatic(String.format("Subscription: correct code: %d was used by: %s",
-                    code, loginService.getUser().getUsername()),
+                    code, user.getUsername()),
                     Level.INFO);
             return true;
         } else {
             LogUtils.saveLogStatic(String.format("Subscription: incorrect code: %d was used by: %s",
-                    code, loginService.getUser().getUsername()),
+                    code, user.getUsername()),
                     Level.WARNING);
             return false;
         }
