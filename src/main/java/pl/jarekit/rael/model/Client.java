@@ -39,10 +39,6 @@ public class Client {
     @Column
     private String status;
 
-//    @OneToOne
-//    @JoinColumn(name="id_user_company")
-//    Client user;
-
     @OneToOne
     private User user;
 

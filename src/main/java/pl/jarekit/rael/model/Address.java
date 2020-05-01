@@ -1,5 +1,6 @@
 package pl.jarekit.rael.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -35,10 +36,8 @@ public class Address {
     @Column
     private String status;
 
-//    @OneToOne( mappedBy="address", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    Client client;
-
     @OneToOne
+    @JsonBackReference
     private User user;
 
     public Address() {
