@@ -1,10 +1,12 @@
 package pl.jarekit.rael.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import pl.jarekit.rael.model.User;
 import pl.jarekit.rael.service.LoginService;
 import pl.jarekit.rael.service.SubscriptionService;
 
@@ -29,8 +31,8 @@ public class SubscriptionController {
     }
 
     @GetMapping("/subscription/{code}")
-    public String showSubscriptionPage2(@PathVariable int code, Model model) {
-        subscriptionService.extendSubscription(code);
+    public String showSubscriptionPage2(@PathVariable int code, @AuthenticationPrincipal User user) {
+        subscriptionService.extendSubscription(code, user);
         return "redirect:/subscription";
     }
 }
