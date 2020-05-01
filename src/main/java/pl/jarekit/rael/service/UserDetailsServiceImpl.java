@@ -22,7 +22,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         this.subscriptionService = subscriptionService;
     }
 
-
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         Optional<User> loadedUser = userRepo.findByUsername(s);

@@ -16,7 +16,6 @@ import pl.jarekit.rael.service.UserDetailsServiceImpl;
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    // przechowywanie hasla uzytkownika w formie szyfrowanej
     @Bean
     public PasswordEncoder getPasswordEncoder(){
         return new BCryptPasswordEncoder();
@@ -29,13 +28,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         this.userDetailsService = userDetailsService;
     }
 
-    // użytkownicy
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService);
     }
 
-    // zabezpieczenia na poziomie HTTP
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
