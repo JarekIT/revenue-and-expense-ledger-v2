@@ -36,9 +36,6 @@ public class Address {
     @Column
     private String status;
 
-//    @OneToOne( mappedBy="address", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    Client client;
-
     @OneToOne
     @JsonBackReference
     private User user;

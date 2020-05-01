@@ -23,7 +23,6 @@ public class LogUtils {
                 message,
                 level);
 
-//        targetURL = "http://localhost:8080/log";
         targetURL = "https://log-service-jarekit.herokuapp.com/log";
 
         try {
@@ -41,7 +40,6 @@ public class LogUtils {
                     .create();
 
             String input = gson.toJson(log);
-            // mam JSONa :-)
 
             OutputStream outputStream = httpConnection.getOutputStream();
             outputStream.write(input.getBytes());
@@ -56,7 +54,7 @@ public class LogUtils {
                     (httpConnection.getInputStream())));
 
             String output;
-            System.out.println("Output from Server:\n");
+            System.out.println("Output from Server:");
             while ((output = responseBuffer.readLine()) != null) {
                 System.out.println(output);
             }
@@ -67,59 +65,5 @@ public class LogUtils {
             e.printStackTrace();
         }
     }
-
-    public void saveLog(String message, Level level) {
-
-        Log log = new Log(
-                Site.RAEL ,
-                LocalDateTime.now() ,
-                message,
-                level);
-
-//        targetURL = "http://localhost:8080/log";
-        targetURL = "https://log-service-jarekit.herokuapp.com/log";
-
-        try {
-
-            URL targetUrl = new URL(targetURL);
-
-            HttpURLConnection httpConnection = (HttpURLConnection) targetUrl.openConnection();
-            httpConnection.setDoOutput(true);
-            httpConnection.setRequestMethod("POST");
-            httpConnection.setRequestProperty("Content-Type", "application/json");
-
-            Gson gson = new GsonBuilder()
-                    .setPrettyPrinting()
-                    .registerTypeAdapter(LocalDateTime.class,new LocalDateAdapter())
-                    .create();
-
-            String input = gson.toJson(log);
-            // mam JSONa :-)
-
-            OutputStream outputStream = httpConnection.getOutputStream();
-            outputStream.write(input.getBytes());
-            outputStream.flush();
-
-            if (httpConnection.getResponseCode() != 200) {
-                throw new RuntimeException("Failed : HTTP error code : "
-                        + httpConnection.getResponseCode());
-            }
-
-            BufferedReader responseBuffer = new BufferedReader(new InputStreamReader(
-                    (httpConnection.getInputStream())));
-
-            String output;
-            System.out.println("Output from Server:\n");
-            while ((output = responseBuffer.readLine()) != null) {
-                System.out.println(output);
-            }
-
-            httpConnection.disconnect();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 
 }
