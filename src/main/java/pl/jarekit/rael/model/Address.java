@@ -1,5 +1,6 @@
 package pl.jarekit.rael.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -39,6 +40,7 @@ public class Address {
 //    Client client;
 
     @OneToOne
+    @JsonBackReference
     private User user;
 
     public Address() {
