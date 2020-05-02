@@ -13,57 +13,62 @@ import java.time.LocalDateTime;
 
 public class LogUtils {
 
-    private static String targetURL;
+    private LogUtils() { }
+
+    private final static String TARGET_URL = "https://log-service-jarekit.herokuapp.com/log";
 
     public static void saveLogStatic(String message, Level level) {
 
-        Log log = new Log(
-                Site.RAEL ,
-                LocalDateTime.now() ,
-                message,
-                level);
+        Runnable task = () -> {
 
-        targetURL = "https://log-service-jarekit.herokuapp.com/log";
+            Log log = new Log(
+                    Site.RAEL ,
+                    LocalDateTime.now() ,
+                    message,
+                    level);
 
-        try {
+            try {
 
-            URL targetUrl = new URL(targetURL);
+                URL targetUrl = new URL(TARGET_URL);
 
-            HttpURLConnection httpConnection = (HttpURLConnection) targetUrl.openConnection();
-            httpConnection.setDoOutput(true);
-            httpConnection.setRequestMethod("POST");
-            httpConnection.setRequestProperty("Content-Type", "application/json");
+                HttpURLConnection httpConnection = (HttpURLConnection) targetUrl.openConnection();
+                httpConnection.setDoOutput(true);
+                httpConnection.setRequestMethod("POST");
+                httpConnection.setRequestProperty("Content-Type", "application/json");
 
-            Gson gson = new GsonBuilder()
-                    .setPrettyPrinting()
-                    .registerTypeAdapter(LocalDateTime.class,new LocalDateAdapter())
-                    .create();
+                Gson gson = new GsonBuilder()
+                        .setPrettyPrinting()
+                        .registerTypeAdapter(LocalDateTime.class,new LocalDateAdapter())
+                        .create();
 
-            String input = gson.toJson(log);
+                String input = gson.toJson(log);
 
-            OutputStream outputStream = httpConnection.getOutputStream();
-            outputStream.write(input.getBytes());
-            outputStream.flush();
+                OutputStream outputStream = httpConnection.getOutputStream();
+                outputStream.write(input.getBytes());
+                outputStream.flush();
 
-            if (httpConnection.getResponseCode() != 200) {
-                throw new RuntimeException("Failed : HTTP error code : "
-                        + httpConnection.getResponseCode());
+                if (httpConnection.getResponseCode() != 200) {
+                    throw new RuntimeException("Failed : HTTP error code : "
+                            + httpConnection.getResponseCode());
+                }
+
+                BufferedReader responseBuffer = new BufferedReader(new InputStreamReader(
+                        (httpConnection.getInputStream())));
+
+                String output;
+                System.out.println("Output from Server:");
+                while ((output = responseBuffer.readLine()) != null) {
+                    System.out.println(output);
+                }
+
+                httpConnection.disconnect();
+
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-
-            BufferedReader responseBuffer = new BufferedReader(new InputStreamReader(
-                    (httpConnection.getInputStream())));
-
-            String output;
-            System.out.println("Output from Server:");
-            while ((output = responseBuffer.readLine()) != null) {
-                System.out.println(output);
-            }
-
-            httpConnection.disconnect();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        };
+        Thread thread = new Thread(task);
+        thread.start();
     }
 
 }
