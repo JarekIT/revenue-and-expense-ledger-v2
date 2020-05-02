@@ -8,6 +8,13 @@
 
 
 ## Features
++ 2.6.3
+    + add separate thread to the LogViewer
+    + send Log to LogViewer on init that the program has started
++ 2.6.2
+     + implement JWT authentication
+     + fix infinitive recursion in JSON getAddresses API
+     + correct few typos
 + 2.6.1
      + hidden subscription page only for anonymous users
 + 2.6.0
