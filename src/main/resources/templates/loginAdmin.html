@@ -11,8 +11,9 @@
 <div id="main">
 
     <!--        div content (central) inside main-->
+    <div class="container">
         <form class="form-signin" method="post" action="/login">
-            <h3 class="form-signin-heading">Please sign in as user</h3>
+            <h3 class="form-signin-heading">Please sign in as admin</h3>
             <p>
                 <input type="text" name="username" class="form-control" placeholder="Username" required autofocus>
             </p>
@@ -21,29 +22,27 @@
             </p>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
 
-            <!-- Register Button -->
-            <button class="btn btn-lg btn-primary btn-block" onclick="window.location.href = '/register';">Register</button>
         </form>
 
     </div>
 
     <hr>
 
-    <!--    DEMO user login-->
+    <!--    DEMO admin login-->
     <div class="container">
         <form class="form-signin" method="post" action="/login">
-            <h3 class="form-signin-heading">Click for demo version:</h3>
-            <input type="hidden" name="username" class="form-control" placeholder="Username" value="Jarek@JarekIT.pl" >
-            <input type="hidden" name="password" class="form-control" placeholder="Password" value="JJJJJJ" >
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Login as user: Jarek@JarekIT.pl</button>
+                <h3 class="form-signin-heading">Click for demo version:</h3>
+                <input type="hidden" name="username" class="form-control" placeholder="Username" value="admin@JarekIT.pl" >
+                <input type="hidden" name="password" class="form-control" placeholder="Password" value="adminadmin" >
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Login as admin: admin@JarekIT.pl</button>
         </form>
     </div>
 
-    <!--    Go to admin panel Button -->
+    <!--    Go to user panel Button -->
     <div class="container">
         <div class="form-signin">
-            <h3 class="form-signin-heading">Go to admin panel:</h3>
-            <button class="btn btn-lg btn-primary btn-block" onclick="window.location.href = '/loginAdmin';">Admin panel</button>
+            <h3 class="form-signin-heading">Go to user panel:</h3>
+            <button class="btn btn-lg btn-primary btn-block" onclick="window.location.href = '/login';">User panel</button>
         </div>
     </div>
 
