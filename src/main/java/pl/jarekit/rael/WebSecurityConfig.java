@@ -3,6 +3,7 @@ package pl.jarekit.rael;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -39,7 +40,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.headers().disable();
         http.authorizeRequests()
                 .antMatchers("/auth").permitAll()
+
                 .antMatchers("/admin").hasAuthority("ROLE_ADMIN")
+
+                .antMatchers("/home").authenticated()
                 .antMatchers("/address*","/addressEdit/*").authenticated()
                 .antMatchers("/client*","/clientEdit/*").authenticated()
                 .antMatchers("/invoice*","/invoiceEdit/*").authenticated()
@@ -47,12 +51,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/summary","/summary/*").authenticated()
                 .antMatchers("/subscription","subscription/*").authenticated()
                 .antMatchers("/API/address/*").authenticated()
+
                 .and()
-                .formLogin().loginPage("/login").defaultSuccessUrl("/home")
+                .formLogin()
+                .loginPage("/login")
+                .defaultSuccessUrl("/home")
+
                 .and()
-                .logout().logoutSuccessUrl("/login").logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logout()
+                .logoutSuccessUrl("/login")
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .deleteCookies("JSESSIONID")
+
                 .and()
                 .httpBasic()
+
                 .and()
                 .addFilter(new JwtFilter(authenticationManager())
                 );
