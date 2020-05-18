@@ -8,6 +8,8 @@
 
 
 ## Features
++ 2.6.4
+    + separate login page to user login page and admin login page
 + 2.6.3
     + add separate thread to the LogViewer
     + send Log to LogViewer on init that the program has started
