@@ -10,6 +10,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 public class LogUtils {
 
@@ -23,7 +24,7 @@ public class LogUtils {
 
             Log log = new Log(
                     Site.RAEL ,
-                    LocalDateTime.now() ,
+                    LocalDateTime.now(ZoneOffset.UTC).plusHours(2) ,
                     message,
                     level);
 
