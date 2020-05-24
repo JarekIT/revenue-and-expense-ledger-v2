@@ -1,11 +1,13 @@
 package pl.jarekit.rael.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import pl.jarekit.rael.model.User;
+import pl.jarekit.rael.service.HomeService;
 
 import java.security.Principal;
 import java.util.Collection;
@@ -13,6 +15,12 @@ import java.util.Collection;
 @Controller
 public class HomeController {
 
+    private HomeService homeService;
+
+    @Autowired
+    public HomeController(HomeService homeService) {
+        this.homeService = homeService;
+    }
 
     @GetMapping("/home")
     public String get(Principal principal, Model model){
@@ -27,6 +35,8 @@ public class HomeController {
         model.addAttribute("client",user.getClientUser());
 
         model.addAttribute("expireDate",user.getExpireDate());
+
+        model.addAttribute("remoteAddress",homeService.getRemoteAddress());
 
         return "home";
     }
