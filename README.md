@@ -19,7 +19,7 @@
 
 ## Preview
 + [www.RaELv2.herokuapp.com](http://RaELv2.herokuapp.com/) ---> working app
-+ [www.JarekIT.pl](http://RaELv2.herokuapp.com/) ---> screens from site
++ [www.JarekIT.pl](http://www.JarekIT.pl/) ---> screens on site
 
 ## Features
 + 2.6.5
