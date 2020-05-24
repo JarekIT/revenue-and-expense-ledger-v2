@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import pl.jarekit.rael.model.User;
-import pl.jarekit.rael.service.HomeService;
+import pl.jarekit.rael.service.IpService;
 
 import java.security.Principal;
 import java.util.Collection;
@@ -15,11 +15,11 @@ import java.util.Collection;
 @Controller
 public class HomeController {
 
-    private HomeService homeService;
+    private IpService ipService;
 
     @Autowired
-    public HomeController(HomeService homeService) {
-        this.homeService = homeService;
+    public HomeController(IpService homeService) {
+        this.ipService = homeService;
     }
 
     @GetMapping("/home")
@@ -36,7 +36,7 @@ public class HomeController {
 
         model.addAttribute("expireDate",user.getExpireDate());
 
-        model.addAttribute("remoteAddress",homeService.getRemoteAddress());
+        model.addAttribute("remoteAddress", ipService.getRemoteAddress());
 
         return "home";
     }
