@@ -8,7 +8,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 @Service
-public class HomeService {
+public class IpService {
 
     public String getRemoteAddress() {
 
@@ -24,5 +24,4 @@ public class HomeService {
         }
         return remoteAddress;
     }
-
 }
