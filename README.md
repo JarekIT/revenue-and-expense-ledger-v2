@@ -22,6 +22,10 @@
 + [www.JarekIT.pl](http://www.JarekIT.pl/) ---> screens on site
 
 ## Features
++ 2.7.0
+    + added report bugs and issues system by RabbitMQ framework
++ 2.6.6
+    + fix bug: LogViewer now sending Logs with local time UTC+2
 + 2.6.5
     + obtained IP address from client
     + added IP address and username info to LogService when client log in

@@ -42,6 +42,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/auth").permitAll()
 
                 .antMatchers("/admin").hasAuthority("ROLE_ADMIN")
+                .antMatchers("/receiveIssues").hasAuthority("ROLE_ADMIN")
+                .antMatchers("/deleteIssue", "/deleteIssue/*").hasAuthority("ROLE_ADMIN")
 
                 .antMatchers("/home").authenticated()
                 .antMatchers("/address*","/addressEdit/*").authenticated()
@@ -51,6 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/summary","/summary/*").authenticated()
                 .antMatchers("/subscription","subscription/*").authenticated()
                 .antMatchers("/API/address/*").authenticated()
+                .antMatchers("/sendIssue").authenticated()
 
                 .and()
                 .formLogin()
