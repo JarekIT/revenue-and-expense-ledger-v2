@@ -16,14 +16,21 @@
 + Summary of tax year and individual months, includes various tax rates. 
 + Separate login page for users and administrator. 
 + All activities are monitored and sent to the LogService-JarekIT microservice. 
++ You can send issue ticket to Admin by RabbitMQ message queue system.
++ As Admin, you can manage the issues system that saves automatically to the MySQL.
++ You can add your email to newsletter and get emails from MailChimp.
 
 ## Preview
 + [www.RaELv2.herokuapp.com](http://RaELv2.herokuapp.com/) ---> working app
 + [www.JarekIT.pl](http://www.JarekIT.pl/) ---> screens on site
 
 ## Features
++ 2.8.0
+    + added newsletter from MailChimp
 + 2.7.0
     + added report bugs and issues system by RabbitMQ framework
+    + admin can manage the issues system
+    + issues are saved automatically to the MySQL
 + 2.6.6
     + fix bug: LogViewer now sending Logs with local time UTC+2
 + 2.6.5
